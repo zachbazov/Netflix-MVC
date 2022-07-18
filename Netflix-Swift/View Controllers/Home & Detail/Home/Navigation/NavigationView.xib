@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NavigationView" customModule="Netflix_Swift" customModuleProvider="target">
+            <connections>
+                <outlet property="airPlayButton" destination="2KT-a8-V8z" id="wCN-jY-SKL"/>
+                <outlet property="bottomContainer" destination="nOQ-FQ-4fK" id="CcP-aa-BYi"/>
+                <outlet property="bottomContainerCenterXConstraint" destination="diO-g1-K05" id="s3A-fd-nOF"/>
+                <outlet property="categoriesButton" destination="9WL-uL-Hys" id="gpA-QN-apg"/>
+                <outlet property="contentView" destination="WkW-Ne-Sll" id="da8-cp-Oei"/>
+                <outlet property="homeButton" destination="7N2-XH-jXC" id="xub-h9-VO7"/>
+                <outlet property="moviesAllCategoriesButton" destination="ABU-eo-hMw" id="rcs-mf-rEj"/>
+                <outlet property="moviesAllCategoriesLeadingConstraint" destination="fY2-sh-qo7" id="aiw-8o-Cq6"/>
+                <outlet property="moviesButton" destination="JOg-b0-mij" id="EPG-fc-Rmh"/>
+                <outlet property="moviesCenterXConstraint" destination="AvW-TW-hAX" id="wLa-Yx-47H"/>
+                <outlet property="profileButton" destination="yhw-XS-5if" id="SbH-Bq-0Vn"/>
+                <outlet property="topGradientView" destination="7wQ-zw-H13" id="BFg-ox-H6A"/>
+                <outlet property="tvShowsAllCategoriesButton" destination="zFM-td-Eve" id="HbP-E9-QeH"/>
+                <outlet property="tvShowsButton" destination="iNz-2w-WHr" id="MFb-s5-6Wc"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="WkW-Ne-Sll" userLabel="Content View">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7wQ-zw-H13" userLabel="Top Gradient View">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWw-fK-9Pp" userLabel="Top Navigation Container">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7N2-XH-jXC" userLabel="Home">
+                            <rect key="frame" x="8" y="12" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="8tm-Lw-OC8"/>
+                                <constraint firstAttribute="width" constant="40" id="nsT-yW-zPI"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="logo"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhw-XS-5if" userLabel="Profile">
+                            <rect key="frame" x="366" y="16" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="gpw-UT-z3e"/>
+                                <constraint firstAttribute="width" constant="32" id="kF2-sP-7jm"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="person.circle" catalog="system">
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="22"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2KT-a8-V8z" userLabel="AirPlay">
+                            <rect key="frame" x="326" y="18" width="28" height="28"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="fbq-ar-QPL"/>
+                                <constraint firstAttribute="width" constant="28" id="v9H-4A-3wO"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="airplayvideo" catalog="system"/>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="6FH-4E-z9Y"/>
+                        <constraint firstItem="7N2-XH-jXC" firstAttribute="centerY" secondItem="2KT-a8-V8z" secondAttribute="centerY" id="PeZ-qO-lni"/>
+                        <constraint firstItem="2KT-a8-V8z" firstAttribute="centerY" secondItem="rWw-fK-9Pp" secondAttribute="centerY" id="U7l-Er-zbm"/>
+                        <constraint firstItem="yhw-XS-5if" firstAttribute="leading" secondItem="2KT-a8-V8z" secondAttribute="trailing" constant="12" id="VSY-Va-LsG"/>
+                        <constraint firstItem="yhw-XS-5if" firstAttribute="centerY" secondItem="rWw-fK-9Pp" secondAttribute="centerY" id="WaA-78-WKx"/>
+                        <constraint firstAttribute="trailing" secondItem="yhw-XS-5if" secondAttribute="trailing" constant="16" id="bn6-xF-OVT"/>
+                        <constraint firstItem="7N2-XH-jXC" firstAttribute="leading" secondItem="rWw-fK-9Pp" secondAttribute="leading" constant="8" id="o8a-DG-R3W"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOQ-FQ-4fK" userLabel="Bottom Navigation Container">
+                    <rect key="frame" x="43.5" y="64" width="327" height="64"/>
+                    <subviews>
+                        <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNz-2w-WHr" userLabel="TV Shows" customClass="NavigationItemView" customModule="Netflix_Swift" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="80" height="64"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="80" id="pi9-28-giH"/>
+                            </constraints>
+                        </view>
+                        <view alpha="0.0" tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFM-td-Eve" userLabel="TV Shows All Categories" customClass="NavigationItemView" customModule="Netflix_Swift" customModuleProvider="target">
+                            <rect key="frame" x="94" y="0.0" width="96" height="64"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="96" id="kHt-Y9-pVI"/>
+                            </constraints>
+                        </view>
+                        <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JOg-b0-mij" userLabel="Movies" customClass="NavigationItemView" customModule="Netflix_Swift" customModuleProvider="target">
+                            <rect key="frame" x="131.5" y="0.0" width="64" height="64"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="64" id="nvi-Ho-grO"/>
+                            </constraints>
+                        </view>
+                        <view alpha="0.0" tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ABU-eo-hMw" userLabel="Movies All Categories" customClass="NavigationItemView" customModule="Netflix_Swift" customModuleProvider="target">
+                            <rect key="frame" x="209.5" y="0.0" width="96" height="64"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="96" id="v90-Vn-fi8"/>
+                            </constraints>
+                        </view>
+                        <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9WL-uL-Hys" userLabel="Categories" customClass="NavigationItemView" customModule="Netflix_Swift" customModuleProvider="target">
+                            <rect key="frame" x="239" y="0.0" width="80" height="64"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="80" id="L2H-V8-KrI"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="iNz-2w-WHr" secondAttribute="bottom" id="0OT-Ma-w4S"/>
+                        <constraint firstAttribute="bottom" secondItem="ABU-eo-hMw" secondAttribute="bottom" id="2L9-uj-yN6"/>
+                        <constraint firstItem="zFM-td-Eve" firstAttribute="leading" secondItem="iNz-2w-WHr" secondAttribute="trailing" constant="14" id="6OW-vW-cxw"/>
+                        <constraint firstItem="iNz-2w-WHr" firstAttribute="leading" secondItem="nOQ-FQ-4fK" secondAttribute="leading" id="ANf-yc-IKs"/>
+                        <constraint firstItem="JOg-b0-mij" firstAttribute="centerX" secondItem="nOQ-FQ-4fK" secondAttribute="centerX" id="AvW-TW-hAX"/>
+                        <constraint firstAttribute="bottom" secondItem="9WL-uL-Hys" secondAttribute="bottom" id="Bce-bU-bRn"/>
+                        <constraint firstItem="iNz-2w-WHr" firstAttribute="top" secondItem="nOQ-FQ-4fK" secondAttribute="top" id="CZ7-7K-Wx8"/>
+                        <constraint firstAttribute="bottom" secondItem="JOg-b0-mij" secondAttribute="bottom" id="GQu-ks-LxJ"/>
+                        <constraint firstAttribute="bottom" secondItem="zFM-td-Eve" secondAttribute="bottom" id="OA5-DX-JFo"/>
+                        <constraint firstItem="9WL-uL-Hys" firstAttribute="top" secondItem="nOQ-FQ-4fK" secondAttribute="top" id="Qma-ts-lvu"/>
+                        <constraint firstItem="zFM-td-Eve" firstAttribute="top" secondItem="nOQ-FQ-4fK" secondAttribute="top" id="YCd-Ux-Cvj"/>
+                        <constraint firstAttribute="trailing" secondItem="9WL-uL-Hys" secondAttribute="trailing" constant="8" id="bbU-Do-63U"/>
+                        <constraint firstItem="ABU-eo-hMw" firstAttribute="leading" secondItem="JOg-b0-mij" secondAttribute="trailing" constant="14" id="fY2-sh-qo7"/>
+                        <constraint firstItem="JOg-b0-mij" firstAttribute="top" secondItem="nOQ-FQ-4fK" secondAttribute="top" id="l2F-Z0-dGT"/>
+                        <constraint firstItem="ABU-eo-hMw" firstAttribute="top" secondItem="nOQ-FQ-4fK" secondAttribute="top" id="nSa-80-aWl"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="AR3-Sc-Kxs"/>
+            <constraints>
+                <constraint firstItem="7wQ-zw-H13" firstAttribute="top" secondItem="WkW-Ne-Sll" secondAttribute="top" id="1Kc-mj-ytL"/>
+                <constraint firstAttribute="bottom" secondItem="7wQ-zw-H13" secondAttribute="bottom" id="3bY-6q-MlW"/>
+                <constraint firstItem="rWw-fK-9Pp" firstAttribute="leading" secondItem="AR3-Sc-Kxs" secondAttribute="leading" id="Aew-x9-szw"/>
+                <constraint firstItem="nOQ-FQ-4fK" firstAttribute="bottom" secondItem="AR3-Sc-Kxs" secondAttribute="bottom" id="Ptv-Zi-x91"/>
+                <constraint firstItem="7wQ-zw-H13" firstAttribute="leading" secondItem="AR3-Sc-Kxs" secondAttribute="leading" id="VpH-Gb-AQ6"/>
+                <constraint firstItem="nOQ-FQ-4fK" firstAttribute="centerX" secondItem="AR3-Sc-Kxs" secondAttribute="centerX" id="diO-g1-K05"/>
+                <constraint firstItem="rWw-fK-9Pp" firstAttribute="top" secondItem="WkW-Ne-Sll" secondAttribute="top" id="dm0-vE-gvL"/>
+                <constraint firstItem="nOQ-FQ-4fK" firstAttribute="width" secondItem="WkW-Ne-Sll" secondAttribute="width" multiplier="0.79" id="gwc-Ot-5xq"/>
+                <constraint firstItem="rWw-fK-9Pp" firstAttribute="trailing" secondItem="AR3-Sc-Kxs" secondAttribute="trailing" id="okN-w0-ygY"/>
+                <constraint firstItem="7wQ-zw-H13" firstAttribute="trailing" secondItem="AR3-Sc-Kxs" secondAttribute="trailing" id="rAh-UK-x6J"/>
+                <constraint firstItem="nOQ-FQ-4fK" firstAttribute="top" secondItem="rWw-fK-9Pp" secondAttribute="bottom" id="x6X-Sb-daX"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="173.91304347826087" y="423.88392857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="airplayvideo" catalog="system" width="128" height="98"/>
+        <image name="logo" width="360" height="360"/>
+        <image name="person.circle" catalog="system" width="128" height="121"/>
+    </resources>
+</document>

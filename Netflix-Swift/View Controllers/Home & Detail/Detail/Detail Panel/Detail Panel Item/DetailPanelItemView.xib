@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailPanelItemView" customModule="Netflix_Swift" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="MVT-zr-jzH" id="T97-DU-xfD"/>
+                <outlet property="imageView" destination="eTF-UT-mlF" id="4Ap-of-pFG"/>
+                <outlet property="titleLabel" destination="fK9-eh-ZaI" id="Ge3-Q8-CQ0"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="MVT-zr-jzH">
+            <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="checkmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="eTF-UT-mlF">
+                    <rect key="frame" x="4" y="6" width="56" height="35"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fK9-eh-ZaI">
+                    <rect key="frame" x="0.0" y="50.5" width="64" height="13.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
+                    <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Eg1-yF-7hG"/>
+            <constraints>
+                <constraint firstItem="Eg1-yF-7hG" firstAttribute="trailing" secondItem="fK9-eh-ZaI" secondAttribute="trailing" id="6AH-lv-cQ9"/>
+                <constraint firstItem="fK9-eh-ZaI" firstAttribute="top" secondItem="eTF-UT-mlF" secondAttribute="bottom" constant="8" id="7Ma-cI-egN"/>
+                <constraint firstItem="Eg1-yF-7hG" firstAttribute="bottom" secondItem="fK9-eh-ZaI" secondAttribute="bottom" id="KEZ-fY-8Fl"/>
+                <constraint firstItem="eTF-UT-mlF" firstAttribute="top" secondItem="MVT-zr-jzH" secondAttribute="top" constant="4" id="SqE-OO-HK6"/>
+                <constraint firstAttribute="trailing" secondItem="eTF-UT-mlF" secondAttribute="trailing" constant="4" id="Zir-8x-ZQP"/>
+                <constraint firstItem="fK9-eh-ZaI" firstAttribute="leading" secondItem="Eg1-yF-7hG" secondAttribute="leading" id="gfE-Ok-DI5"/>
+                <constraint firstItem="eTF-UT-mlF" firstAttribute="leading" secondItem="MVT-zr-jzH" secondAttribute="leading" constant="4" id="sEE-CH-Y9g"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="112" y="51"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
+    </resources>
+</document>

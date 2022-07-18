@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailPreviewView" customModule="Netflix_Swift" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="zvj-np-b5N" id="LyE-QG-ZLg"/>
+                <outlet property="imageView" destination="Nee-5g-QTf" id="rvx-da-rvB"/>
+                <outlet property="mediaPlayerView" destination="krl-L8-5sp" id="c9u-xD-jia"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="zvj-np-b5N" userLabel="Content View">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="236"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nee-5g-QTf">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="236"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="krl-L8-5sp" customClass="MediaPlayerView" customModule="Netflix_Swift" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="236"/>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sna-1Q-f3Z" userLabel="YT Player View" customClass="YTPlayerView" customModule="Netflix_Swift" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="236"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="sna-1Q-f3Z" secondAttribute="trailing" id="5yW-bQ-ShA"/>
+                <constraint firstItem="krl-L8-5sp" firstAttribute="leading" secondItem="zvj-np-b5N" secondAttribute="leading" id="BDk-oE-Nbq"/>
+                <constraint firstItem="Nee-5g-QTf" firstAttribute="leading" secondItem="zvj-np-b5N" secondAttribute="leading" id="CtF-Eb-4aI"/>
+                <constraint firstItem="sna-1Q-f3Z" firstAttribute="top" secondItem="zvj-np-b5N" secondAttribute="top" id="DBM-hw-KSs"/>
+                <constraint firstAttribute="trailing" secondItem="krl-L8-5sp" secondAttribute="trailing" id="RHL-eT-gmu"/>
+                <constraint firstItem="krl-L8-5sp" firstAttribute="top" secondItem="zvj-np-b5N" secondAttribute="top" id="Rsz-z0-mrn"/>
+                <constraint firstAttribute="bottom" secondItem="krl-L8-5sp" secondAttribute="bottom" id="Xky-l7-xk8"/>
+                <constraint firstAttribute="bottom" secondItem="sna-1Q-f3Z" secondAttribute="bottom" id="dZA-Ng-tT5"/>
+                <constraint firstItem="sna-1Q-f3Z" firstAttribute="leading" secondItem="zvj-np-b5N" secondAttribute="leading" id="hQs-iG-6HE"/>
+                <constraint firstAttribute="trailing" secondItem="Nee-5g-QTf" secondAttribute="trailing" id="kkB-SP-6i3"/>
+                <constraint firstItem="Nee-5g-QTf" firstAttribute="top" secondItem="zvj-np-b5N" secondAttribute="top" id="l9t-gT-Dnh"/>
+                <constraint firstAttribute="bottom" secondItem="Nee-5g-QTf" secondAttribute="bottom" id="mRO-OU-mnq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-565" y="32"/>
+        </view>
+    </objects>
+</document>

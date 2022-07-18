@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailPanelView" customModule="Netflix_Swift" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="vEZ-4D-JKx" id="CNS-sF-yw0"/>
+                <outlet property="leadingPanelButton" destination="ph6-mI-iR6" id="8qh-ED-z21"/>
+                <outlet property="middlePanelButton" destination="vXq-uR-8nx" id="KXP-9c-u4S"/>
+                <outlet property="trailingPanelButton" destination="Ps2-Q7-Fpl" id="alP-j2-oYt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="vEZ-4D-JKx">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="48" translatesAutoresizingMaskIntoConstraints="NO" id="TaI-2l-K2g">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ph6-mI-iR6" userLabel="My List Panel Item" customClass="DetailPanelItemView" customModule="Netflix_Swift" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="106" height="64"/>
+                        </view>
+                        <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXq-uR-8nx" userLabel="Rate Panel Item" customClass="DetailPanelItemView" customModule="Netflix_Swift" customModuleProvider="target">
+                            <rect key="frame" x="154" y="0.0" width="106" height="64"/>
+                        </view>
+                        <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ps2-Q7-Fpl" userLabel="Share Panel Item" customClass="DetailPanelItemView" customModule="Netflix_Swift" customModuleProvider="target">
+                            <rect key="frame" x="308" y="0.0" width="106" height="64"/>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="y91-ye-Re8"/>
+            <constraints>
+                <constraint firstItem="y91-ye-Re8" firstAttribute="trailing" secondItem="TaI-2l-K2g" secondAttribute="trailing" id="4IA-na-b05"/>
+                <constraint firstItem="TaI-2l-K2g" firstAttribute="top" secondItem="vEZ-4D-JKx" secondAttribute="top" id="faa-2Z-BIt"/>
+                <constraint firstAttribute="bottom" secondItem="TaI-2l-K2g" secondAttribute="bottom" id="kbr-9t-mSW"/>
+                <constraint firstItem="TaI-2l-K2g" firstAttribute="leading" secondItem="y91-ye-Re8" secondAttribute="leading" id="xsc-MW-ZhA"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="117" y="27"/>
+        </view>
+    </objects>
+</document>

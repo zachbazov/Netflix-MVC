@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Montserrat.ttf</string>
+		<string>LeagueSpartan-Bold.otf</string>
+		<string>Rene Bieder - Milliard.otf</string>
+		<string>Hack-Regular.ttf</string>
+		<string>NoticiaText-Regular.ttf</string>
+		<string>NoticiaText-Bold.ttf</string>
+		<string>Lusitana-Bold.ttf</string>
+		<string>Lusitana-Regular.ttf</string>
+		<string>Comfortaa.ttf</string>
+		<string>Domine.ttf</string>
+		<string>AnekTelugu.ttf</string>
+		<string>Hack-Bold.ttf</string>
+		<string>SairaCondensed-Light.ttf</string>
+		<string>SairaCondensed-Regular.ttf</string>
+		<string>Oxygen-Bold.ttf</string>
+		<string>Oxygen-Regular.ttf</string>
+		<string>Oxygen-Light.ttf</string>
+	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Home</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+</dict>
+</plist>

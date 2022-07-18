@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RatableCollectionViewCell" id="kxe-rM-SBp" customClass="RatableCollectionViewCell" customModule="Netflix_Swift" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="146" height="174"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="1vH-Bf-2t8">
+                <rect key="frame" x="0.0" y="0.0" width="146" height="174"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LkF-ev-s4P" userLabel="Cover Image View">
+                        <rect key="frame" x="16" y="0.0" width="130" height="174"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="LkF-ev-s4P" secondAttribute="trailing" id="0MG-EX-b3n"/>
+                    <constraint firstItem="LkF-ev-s4P" firstAttribute="top" secondItem="1vH-Bf-2t8" secondAttribute="top" id="NIz-kR-b22"/>
+                    <constraint firstAttribute="bottom" secondItem="LkF-ev-s4P" secondAttribute="bottom" id="OsE-zO-Tch"/>
+                    <constraint firstItem="LkF-ev-s4P" firstAttribute="leading" secondItem="1vH-Bf-2t8" secondAttribute="leading" constant="16" id="elK-vP-koP"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="146" height="174"/>
+            <connections>
+                <outlet property="coverImageView" destination="LkF-ev-s4P" id="qBK-8b-t1O"/>
+            </connections>
+            <point key="canvasLocation" x="24.637681159420293" y="61.607142857142854"/>
+        </collectionViewCell>
+    </objects>
+</document>
