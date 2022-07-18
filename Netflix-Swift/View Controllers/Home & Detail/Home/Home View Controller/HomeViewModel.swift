@@ -171,7 +171,7 @@ extension HomeViewModel: HomeViewModelDelegate {
 extension HomeViewModel: TableViewSnapshotDelegate {
     
     func tableViewDidInstantiateSnapshot(_ state: TableViewSnapshot.State) {
-        print(state.rawValue)
+        
         guard
             let delegate = delegate,
             let homeViewController = homeViewController,

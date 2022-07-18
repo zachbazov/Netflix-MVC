@@ -50,24 +50,44 @@ final class HomeViewController: PrototypeViewController {
         homeOverlayContainerViewTop.constant = view.bounds.size.height
         
         
-        URLService.shared.request(url: .section) { [weak self] (sections: SectionResponse) in
-            guard let self = self else {
-                return
+        APIService.shared.request(SignInResponse.self, .signIn) { response in
+            
+            switch response {
+            case .success(let signInResponse):
+                
+                APIService.shared.authentication.authedUser = signInResponse.data.user
+                
+                APIService.shared.authentication.authedUserJWTToken = signInResponse.token
+                
+                
+                APIService.shared.request(SectionResponse.self, .section) { response in
+                    
+                    switch response {
+                    case .success(let sectionResponse):
+                        
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self = self else {
+                                return
+                            }
+                            
+                            self.homeViewModel.tvShows = sectionResponse.data
+                            self.homeViewModel.movies = sectionResponse.data
+                                                        WeakInjector.shared.inject([self.homeViewModel,
+                                                        self.navigationView,
+                                                        self.navigationOverlayView],
+                                                       with: self)
+                        }
+                        
+                    case .failure(.failedWithStatusCode(statusCode: 401)):
+                        print("401 error while fetching sections.")
+                    case .failure(_):
+                        print("error while fetching sections.")
+                    }
+                }
+            case .failure(let err):
+                print(err.description)
             }
-            
-            self.homeViewModel.tvShows = sections.data
-            self.homeViewModel.movies = sections.data
-            
-//            self.homeViewModel.tvShows.first!.media = self.homeViewModel.tvShows.first!.media.shuffled()
-//            self.homeViewModel.movies.first!.movies = self.homeViewModel.movies.first!.movies.shuffled()
-            
-            WeakInjector.shared.inject([self.homeViewModel,
-                                        self.navigationView,
-                                        self.navigationOverlayView],
-                                       with: self)
         }
-        
-        APIService.shared.request(.users, .post)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

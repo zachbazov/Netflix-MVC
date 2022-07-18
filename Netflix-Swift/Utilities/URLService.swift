@@ -132,42 +132,42 @@ final class URLService {
     }
 }
 
-extension URLService {
-    
-    func request<T: Decodable>(url: URLLink, completion: ((T) -> Void)? = nil) {
-        
-        switch url {
-        case .section:
-            task = URLSession.shared.dataTask(with: url.urlValue) { data, res, err in
-                
-                if let err = err {
-                    print("RequestError", err)
-                    
-                    return
-                }
-                
-                guard
-                    let response = res as? HTTPURLResponse,
-                    response.statusCode == 200,
-                    let data = data
-                else {
-                    return
-                }
-                
-                let decoder = JSONDecoder()
-                
-                DispatchQueue.main.async {
-                    do {
-                        let sections = try decoder.decode(SectionResponse.self, from: data)
-                        
-                        completion!(sections as! T)
-                    } catch let error {
-                        print("DecodingError", error)
-                    }
-                }
-            }
-        }
-        
-        task.resume()
-    }
-}
+//extension URLService {
+//    
+//    func request(url: URLLink, _ completion: @escaping (APIResponse<SectionResponse>) -> Void) {
+//        
+//        switch url {
+//        case .section:
+//            task = URLSession.shared.dataTask(with: url.urlValue) { data, res, err in
+//                
+//                if let err = err {
+//                    print("RequestError", err)
+//                    
+//                    return
+//                }
+//                
+//                guard
+//                    let response = res as? HTTPURLResponse,
+//                    response.statusCode == 200,
+//                    let data = data
+//                else {
+//                    return
+//                }
+//                
+//                let decoder = JSONDecoder()
+//                
+//                DispatchQueue.main.async {
+//                    do {
+//                        let sections = try decoder.decode(SectionResponse.self, from: data)
+//                        
+//                        completion(.success(sections))
+//                    } catch let error {
+//                        print("DecodingError", error)
+//                    }
+//                }
+//            }
+//        }
+//        
+//        task.resume()
+//    }
+//}
