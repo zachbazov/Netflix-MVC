@@ -54,7 +54,10 @@ final class HomeViewController: PrototypeViewController {
         homeOverlayContainerViewTop.constant = view.bounds.size.height
         
         
-        self.alertView.homeViewController = self
+        WeakInjector.shared.inject(alertView, with: self)
+        
+        placeholderView.alpha = .shown
+        
         
         if let _ = APIService.shared.authentication.credentials.user,
            let _ = APIService.shared.authentication.credentials.jwt {
@@ -77,6 +80,7 @@ final class HomeViewController: PrototypeViewController {
                                                with: self)
                     
                 case .failure(let err):
+                    
                     self.alertView
                         .present()
                         .title("Unauthorized")

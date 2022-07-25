@@ -44,6 +44,18 @@ extension WeakInjector: WeakInjecting {
     
     func inject<T, C>(_ t: T, with c: C) where C: UIViewController {
         switch t {
+            
+        case let alertView as AlertView:
+            switch c {
+            case let c as SignUpViewController:
+                alertView.signUpViewController = c
+            case let c as SignInViewController:
+                alertView.signInViewController = c
+            case let c as HomeViewController:
+                alertView.homeViewController = c
+            default: break
+            }
+            
         case let homeViewModel as HomeViewModel:
             homeViewModel.homeViewController = c as? HomeViewController
             

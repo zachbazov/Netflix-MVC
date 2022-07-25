@@ -40,7 +40,8 @@ final class SignInViewController: UIViewController {
         self.signInButton.layer.borderWidth = 1.5
         self.signInButton.layer.borderColor = UIColor.black.cgColor
         
-        self.alertView.signInViewController = self
+        
+        WeakInjector.shared.inject(alertView, with: self)
     }
     
     
@@ -88,6 +89,13 @@ final class SignInViewController: UIViewController {
                     
                     let storyboard: UIStoryboard = .init(name: UIStoryboard.Name.home, bundle: .main)
                     let viewController: UITabBarController = storyboard.instantiateViewController(withIdentifier: UIViewController.Identifier.homeTabBarController) as! UITabBarController
+                    
+                    if UIApplication.shared.windows.first!.rootViewController?.presentedViewController is UINavigationController || UIApplication.shared.windows.first!.rootViewController?.presentedViewController is UITabBarController {
+                        
+                        self.dismiss(animated: true, completion: nil)
+                        
+                        return
+                    }
                     
                     if #available(iOS 13, *) {
                         UIApplication.shared.windows.first!.rootViewController?.present(viewController, animated: true)

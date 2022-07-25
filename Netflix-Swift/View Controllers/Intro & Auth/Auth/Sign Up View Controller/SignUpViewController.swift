@@ -52,7 +52,8 @@ final class SignUpViewController: UIViewController {
         self.signUpButton.layer.borderWidth = 1.5
         self.signUpButton.layer.borderColor = UIColor.black.cgColor
         
-        self.alertView.signUpViewController = self
+        
+        WeakInjector.shared.inject(alertView, with: self)
     }
     
     

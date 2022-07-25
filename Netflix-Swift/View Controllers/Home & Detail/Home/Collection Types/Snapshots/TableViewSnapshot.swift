@@ -145,7 +145,7 @@ extension TableViewSnapshot: TableViewSnapshotDelegate {
             DispatchError.unexpectedIndexPathForSection(indexPath.section).dispatch
         }
         
-//        delegate!.tableViewWillBeginLoading?(self.tableView)
+        delegate.tableViewWillBeginLoading?(self.tableView)
         
         switch cell {
         case let cell as DisplayTableViewCell:

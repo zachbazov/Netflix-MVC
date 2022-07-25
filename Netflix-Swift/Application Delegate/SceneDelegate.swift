@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let storyboard: UIStoryboard
         let viewController: UIViewController
-        let condition = APIService.shared.authentication.credentials.user == nil || APIService.shared.authentication.credentials.jwt == nil
+        let condition: Bool = APIService.shared.authentication.credentials.user == nil || APIService.shared.authentication.credentials.jwt == nil
         
         storyboard = .init(name: condition
                            ? UIStoryboard.Name.authentication
