@@ -19,14 +19,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Lifecycle
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        APIService.shared.authentication.credentials.decode()
+        
+        let storyboard: UIStoryboard
+        let viewController: UIViewController
+        let condition = APIService.shared.authentication.credentials.user == nil || APIService.shared.authentication.credentials.jwt == nil
+        
+        storyboard = .init(name: condition
+                           ? UIStoryboard.Name.authentication
+                           : UIStoryboard.Name.home,
+                           bundle: .main)
+        
+        viewController = storyboard.instantiateViewController(withIdentifier: condition ? UIViewController.Identifier.navigationAuthViewController : UIViewController.Identifier.homeTabBarController)
+        
+        window = .init(windowScene: windowScene)
+        window!.rootViewController = viewController
+        window!.makeKeyAndVisible()
     }
+    
     
     func sceneDidDisconnect(_ scene: UIScene) {
         UserDefaults.standard.removeObject(forKey: UserDefaults.stateRowKey)
         UserDefaults.standard.removeObject(forKey: UserDefaults.categoryRowKey)
     }
-    
     
     func sceneDidBecomeActive(_ scene: UIScene) {}
     

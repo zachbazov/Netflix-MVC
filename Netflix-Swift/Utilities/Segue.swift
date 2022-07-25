@@ -22,6 +22,9 @@ final class Segue {
     // MARK: Identifier
     
     enum Identifier: String {
+        case signIn = "SignInViewController"
+        case signUp = "SignUpViewController"
+        case home = "HomeViewController"
         case detail = "DetailViewController"
         case homeOverlay = "HomeOverlayViewController"
     }

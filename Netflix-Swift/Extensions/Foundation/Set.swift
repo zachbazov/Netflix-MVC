@@ -5,7 +5,7 @@
 //  Created by Zach Bazov on 09/03/2022.
 //
 
-import UIKit
+import Foundation
 
 // MARK: ListKey
 

@@ -13,7 +13,8 @@
         <!--Tab Bar Controller-->
         <scene sceneID="nvJ-R4-qLr">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="4uO-3T-JT6" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomeTabBarController" modalPresentationStyle="fullScreen" id="4uO-3T-JT6" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" itemPositioning="centered" id="Z6C-Vz-smP">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -74,6 +75,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbm-yf-6Zf" customClass="AlertView" customModule="Netflix_Swift" customModuleProvider="target">
+                                <rect key="frame" x="31" y="-84" width="352" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="mpI-R4-hxm"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="EV0-4l-z13" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1PA-WU-Uno"/>
@@ -97,10 +109,13 @@
                             <constraint firstItem="9cq-mQ-vbK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Uvj-Ye-hGe"/>
                             <constraint firstAttribute="trailing" secondItem="wxT-CC-Orr" secondAttribute="trailing" id="Vl8-6g-DHY"/>
                             <constraint firstAttribute="trailing" secondItem="BeG-ov-kvR" secondAttribute="trailing" id="W2E-Jt-jDd"/>
+                            <constraint firstItem="bbm-yf-6Zf" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.85" id="Y14-n1-m7w"/>
                             <constraint firstAttribute="bottom" secondItem="EV0-4l-z13" secondAttribute="bottom" id="afQ-7J-LtF"/>
                             <constraint firstAttribute="trailing" secondItem="f0a-0c-mtB" secondAttribute="trailing" id="cki-g4-a1n"/>
+                            <constraint firstItem="bbm-yf-6Zf" firstAttribute="top" secondItem="RPr-aI-tzU" secondAttribute="bottom" constant="-128" id="fdh-FO-Iat"/>
                             <constraint firstItem="wxT-CC-Orr" firstAttribute="top" secondItem="RPr-aI-tzU" secondAttribute="bottom" id="h55-XM-SiZ"/>
                             <constraint firstItem="wxT-CC-Orr" firstAttribute="top" secondItem="9cq-mQ-vbK" secondAttribute="bottom" id="iHR-Kf-qOd"/>
+                            <constraint firstItem="bbm-yf-6Zf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nx6-YF-YJq"/>
                             <constraint firstItem="f0a-0c-mtB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="reH-VJ-Awf"/>
                             <constraint firstItem="BeG-ov-kvR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vtQ-33-8L6"/>
                         </constraints>
@@ -113,6 +128,8 @@
                     <navigationItem key="navigationItem" id="ZTY-P5-Wft"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="alertView" destination="bbm-yf-6Zf" id="jbX-ws-D41"/>
+                        <outlet property="alertViewTopConstraint" destination="fdh-FO-Iat" id="CZV-bG-Stx"/>
                         <outlet property="homeOverlayContainerView" destination="MHg-z2-YUr" id="8Wc-tr-Lps"/>
                         <outlet property="homeOverlayContainerViewTop" destination="S4f-wJ-AY5" id="uLb-YO-g1K"/>
                         <outlet property="maskView" destination="f0a-0c-mtB" id="PP1-zt-D42"/>

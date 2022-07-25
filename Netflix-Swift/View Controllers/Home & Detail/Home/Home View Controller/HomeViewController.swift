@@ -31,6 +31,10 @@ final class HomeViewController: PrototypeViewController {
     
     @IBOutlet private(set) weak var homeOverlayContainerViewTop: NSLayoutConstraint! = nil
     
+    @IBOutlet weak var alertView: AlertView!
+    
+    @IBOutlet weak var alertViewTopConstraint: NSLayoutConstraint!
+    
     
     private(set) var homeViewModel: HomeViewModel = .init()
     
@@ -50,47 +54,59 @@ final class HomeViewController: PrototypeViewController {
         homeOverlayContainerViewTop.constant = view.bounds.size.height
         
         
-        APIService.shared.request(SignInResponse.self, .signIn) { response in
+        self.alertView.homeViewController = self
+        
+        if let _ = APIService.shared.authentication.credentials.user,
+           let _ = APIService.shared.authentication.credentials.jwt {
             
-            switch response {
-            case .success(let signInResponse):
+            APIService.shared.request(SectionResponse.self,
+                                      .get,
+                                      .find(.sections)) { [weak self] response in
                 
-                APIService.shared.authentication.authedUser = signInResponse.data.user
+                guard let self = self else { return }
                 
-                APIService.shared.authentication.authedUserJWTToken = signInResponse.token
-                
-                
-                APIService.shared.request(SectionResponse.self, .section) { response in
+                switch response {
+                case .success(let sectionResponse):
                     
-                    switch response {
-                    case .success(let sectionResponse):
-                        
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self = self else {
-                                return
+                    self.homeViewModel.tvShows = sectionResponse.data
+                    self.homeViewModel.movies = sectionResponse.data
+                    
+                    WeakInjector.shared.inject([self.homeViewModel,
+                                                self.navigationView,
+                                                self.navigationOverlayView],
+                                               with: self)
+                    
+                case .failure(let err):
+                    self.alertView
+                        .present()
+                        .title("Unauthorized")
+                        .message(err.description)
+                        .withStatusCode(401)
+                        .secondaryTitle("Sign In")
+                        .action(.secondary) {
+
+                            APIService.shared.authentication.credentials.deleteCache()
+
+                            DispatchQueue.main.async {
+
+                                let storyboard: UIStoryboard = .init(name: UIStoryboard.Name.authentication, bundle: .main)
+
+                                let viewController: UIViewController = storyboard.instantiateViewController(withIdentifier: UIViewController.Identifier.navigationAuthViewController)
+
+                                if #available(iOS 13, *) {
+                                    UIApplication.shared.windows.first!.rootViewController?.present(viewController, animated: true)
+                                } else {
+                                    UIApplication.shared.keyWindow?.rootViewController?.present(viewController, animated: true)
+                                }
                             }
-                            
-                            self.homeViewModel.tvShows = sectionResponse.data
-                            self.homeViewModel.movies = sectionResponse.data
-                                                        WeakInjector.shared.inject([self.homeViewModel,
-                                                        self.navigationView,
-                                                        self.navigationOverlayView],
-                                                       with: self)
                         }
-                        
-                    case .failure(.failedWithStatusCode(statusCode: 401)):
-                        print("401 error while fetching sections.")
-                    case .failure(_):
-                        print("error while fetching sections.")
-                    }
                 }
-            case .failure(let err):
-                print(err.description)
             }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         switch segue.destination {
         case let navigationController as UINavigationController:
             

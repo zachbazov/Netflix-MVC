@@ -41,16 +41,6 @@ protocol Sectionable: Decodable {
 
 
 
-// MARK: - SectionResponse
-
-struct SectionResponse: Decodable {
-    var status: String
-    var results: Int
-    var data: [SectionViewModel]
-}
-
-
-
 // MARK: - SectionIndices
 
 enum SectionIndices: Int, Valuable, CaseIterable {

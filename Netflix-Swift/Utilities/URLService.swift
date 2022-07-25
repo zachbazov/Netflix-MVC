@@ -11,44 +11,6 @@ import UIKit
 
 final class URLService {
     
-    //
-    
-    enum URLProtocol: String {
-        case http = "http://"
-        case https = "https://"
-    }
-    
-    enum URLSubdomain: String {
-        case local
-        case heroku = "netflix-swift-api.herokuapp.com/"
-    }
-    
-    enum URLPath: String {
-        case sections = "api/v1/sections"
-        case users = "api/v1/users"
-        
-        var urlValue: URL {
-            return URL(string: self.rawValue)!
-        }
-    }
-    
-    var urlProtocol: URLProtocol = .https
-    
-    var urlSubdomain: URLSubdomain = .heroku
-    
-    var urlPath: URLPath = .sections
-    
-    
-    enum URLLink {
-        case section
-        
-        var urlValue: URL {
-            
-            return URL(string: "\(URLService.shared.urlProtocol.rawValue)\(URLService.shared.urlSubdomain.rawValue)\(URLService.shared.urlPath.rawValue)")!
-        }
-    }
-    
-    
     // MARK: Properties
     
     static let shared: URLService = .init()
@@ -62,7 +24,7 @@ final class URLService {
     
     var configuration: URLSessionConfiguration {
         let configuration: URLSessionConfiguration = .background(withIdentifier: "URLService")
-        configuration.timeoutIntervalForRequest = 10
+        configuration.timeoutIntervalForRequest = 30
         configuration.requestCachePolicy = .returnCacheDataElseLoad
         
         return configuration
@@ -131,43 +93,3 @@ final class URLService {
         cache.setObject(image, forKey: identifier)
     }
 }
-
-//extension URLService {
-//    
-//    func request(url: URLLink, _ completion: @escaping (APIResponse<SectionResponse>) -> Void) {
-//        
-//        switch url {
-//        case .section:
-//            task = URLSession.shared.dataTask(with: url.urlValue) { data, res, err in
-//                
-//                if let err = err {
-//                    print("RequestError", err)
-//                    
-//                    return
-//                }
-//                
-//                guard
-//                    let response = res as? HTTPURLResponse,
-//                    response.statusCode == 200,
-//                    let data = data
-//                else {
-//                    return
-//                }
-//                
-//                let decoder = JSONDecoder()
-//                
-//                DispatchQueue.main.async {
-//                    do {
-//                        let sections = try decoder.decode(SectionResponse.self, from: data)
-//                        
-//                        completion(.success(sections))
-//                    } catch let error {
-//                        print("DecodingError", error)
-//                    }
-//                }
-//            }
-//        }
-//        
-//        task.resume()
-//    }
-//}

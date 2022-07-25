@@ -100,6 +100,7 @@ where Cell: UICollectionViewCell {
         
         if let required = required {
             self.requiresMyList = required
+            self.homeViewController = homeViewController
         }
         
         if let standardCell = cell {

@@ -40,15 +40,6 @@ class TableViewCell<Cell>: UITableViewCell, Configurable where Cell: UICollectio
         
         self.backgroundColor = .black
         self.contentView.backgroundColor = .black
-        
-        let dummyLayout: ComputableFlowLayout = .init(.original)
-        
-        self.collectionView = .init(frame: bounds, collectionViewLayout: dummyLayout)
-        self.collectionView.backgroundColor = .black
-        self.collectionView.showsVerticalScrollIndicator = false
-        self.collectionView.showsHorizontalScrollIndicator = false
-        
-        self.contentView.addSubview(collectionView)
     }
     
     required init?(coder: NSCoder) {
@@ -64,32 +55,35 @@ class TableViewCell<Cell>: UITableViewCell, Configurable where Cell: UICollectio
     }
     
     
-    // MARK: Lifecycle
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
-    }
-    
-    
     //
     
     func configure(_ section: SectionViewModel? = nil, with homeViewController: HomeViewController? = nil) {
         
         if let homeViewController = homeViewController {
+            
             self.homeViewController = homeViewController
             
             self.section = section
             
-            collectionView.register(Cell.nib, forCellWithReuseIdentifier: Cell.reuseIdentifier)
+            let dummyLayout: ComputableFlowLayout = .init(.original)
+            
+            self.collectionView = .init(frame: bounds, collectionViewLayout: dummyLayout)
+            self.collectionView.backgroundColor = .black
+            self.collectionView.showsVerticalScrollIndicator = false
+            self.collectionView.showsHorizontalScrollIndicator = false
+            
+            self.contentView.addSubview(collectionView)
+            
+            self.collectionView.register(Cell.nib, forCellWithReuseIdentifier: Cell.reuseIdentifier)
+            
+            collectionView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            ])
             
             
             let index: SectionIndices? = .init(rawValue: self.section.id)
@@ -99,40 +93,49 @@ class TableViewCell<Cell>: UITableViewCell, Configurable where Cell: UICollectio
             case .display:
                 break
             case .ratable:
-                self.section = sort(.rating, sliceBy: 10)
+                self.section = self.sort(.rating, sliceBy: 10)
                 
                 layout = .init(.original)
-                collectionView.setCollectionViewLayout(layout, animated: false)
+                self.collectionView.setCollectionViewLayout(layout, animated: false)
             case .resumable:
                 
                 layout = .init(.standard)
-                collectionView.setCollectionViewLayout(layout, animated: false)
+                self.collectionView.setCollectionViewLayout(layout, animated: false)
             case .blockbuster:
                 
                 layout = .init(.blockbuster)
-                collectionView.setCollectionViewLayout(layout, animated: false)
+                self.collectionView.setCollectionViewLayout(layout, animated: false)
             case .myList:
                 layout = .init(.standard)
-                collectionView.setCollectionViewLayout(layout, animated: false)
+                DispatchQueue.main.async {
+                    
+                    self.collectionView?.setCollectionViewLayout(layout, animated: false)
+                }
             default:
                 
                 layout = .init(.standard)
-                collectionView.setCollectionViewLayout(layout, animated: false)
+                self.collectionView.setCollectionViewLayout(layout, animated: false)
                 
-                dataSet = .init(self.section, for: self, with: homeViewController)
-                snapshot = .init(dataSet, with: homeViewController)
+                self.dataSet = .init(self.section, for: self, with: homeViewController)
+                self.snapshot = .init(self.dataSet, with: homeViewController)
                 
-                collectionView.delegate = snapshot
-                collectionView.dataSource = snapshot
-                collectionView.prefetchDataSource = snapshot
-                
-                collectionView.reloadData()
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    self.collectionView.delegate = self.snapshot
+                    self.collectionView.dataSource = self.snapshot
+                    self.collectionView.prefetchDataSource = self.snapshot
+                    
+                    self.collectionView.reloadData()
+                }
                 
                 return
             }
             
-            dataSet = .init(self.section, requireMyList: index == .myList ? true : false, with: homeViewController)
-            snapshot = .init(dataSet, with: homeViewController)
+            self.dataSet = .init(self.section, requireMyList: index == .myList ? true : false, with: homeViewController)
+            self.snapshot = .init(self.dataSet, with: homeViewController)
             
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {

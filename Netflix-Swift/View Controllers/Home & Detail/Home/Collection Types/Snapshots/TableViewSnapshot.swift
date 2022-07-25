@@ -381,35 +381,35 @@ extension TableViewSnapshot: UITableViewDataSourcePrefetching {
                 
                 singleCell = tableView.dequeueCell(for: DisplayTableViewCell.self, at: indexPath)! as? DisplayTableViewCell
                 
-                delegate.tableView?(self.tableView, willConfigure: singleCell, at: indexPath)
+//                delegate.tableView?(self.tableView, willConfigure: singleCell, at: indexPath)
                 
             case .ratable:
                 guard ratableCell == nil else { return }
                 
                 ratableCell = tableView.dequeueCell(for: RatableTableViewCell.self, at: indexPath)! as? RatableTableViewCell
                 
-                delegate.tableView?(self.tableView, willConfigure: ratableCell, at: indexPath)
+//                delegate.tableView?(self.tableView, willConfigure: ratableCell, at: indexPath)
                 
             case .resumable:
                 guard resumableCell == nil else { return }
                 
                 resumableCell = tableView.dequeueCell(for: ResumableTableViewCell.self, at: indexPath)! as? ResumableTableViewCell
                 
-                delegate.tableView?(self.tableView, willConfigure: resumableCell, at: indexPath)
+//                delegate.tableView?(self.tableView, willConfigure: resumableCell, at: indexPath)
                 
             case .blockbuster:
                 guard blockbusterCell == nil else { return }
                 
                 blockbusterCell = tableView.dequeueCell(for: BlockbusterTableViewCell.self, at: indexPath)! as? BlockbusterTableViewCell
                 
-                delegate.tableView?(self.tableView, willConfigure: blockbusterCell, at: indexPath)
+//                delegate.tableView?(self.tableView, willConfigure: blockbusterCell, at: indexPath)
                 
             case .myList:
                 guard myListCell == nil else { return }
                 
                 myListCell = tableView.dequeueCell(for: MyListTableViewCell.self, at: indexPath)! as? MyListTableViewCell
                 
-                delegate.tableView?(self.tableView, willConfigure: myListCell, at: indexPath)
+//                delegate.tableView?(self.tableView, willConfigure: myListCell, at: indexPath)
                 
             default:
                 guard standardCell == nil else { return }

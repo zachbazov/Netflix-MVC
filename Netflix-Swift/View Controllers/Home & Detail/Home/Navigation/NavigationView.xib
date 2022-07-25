@@ -57,6 +57,9 @@
                             <state key="normal" image="person.circle" catalog="system">
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="22"/>
                             </state>
+                            <connections>
+                                <action selector="buttonDidTap:" destination="-1" eventType="touchUpInside" id="YxZ-hq-ISO"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2KT-a8-V8z" userLabel="AirPlay">
                             <rect key="frame" x="326" y="18" width="28" height="28"/>

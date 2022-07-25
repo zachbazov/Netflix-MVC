@@ -151,6 +151,34 @@ final class NavigationView: UIView, Nibable {
         delegate = nil
         homeViewController = nil
     }
+    
+    
+    // MARK: Action Outlets
+    
+    @IBAction func buttonDidTap(_ sender: UIButton) {
+        
+        APIService.shared.authentication.credentials.deleteCache()
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let storyboard: UIStoryboard = .init(name: UIStoryboard.Name.authentication, bundle: .main)
+            let viewController: UIViewController = storyboard.instantiateViewController(withIdentifier: UIViewController.Identifier.navigationAuthViewController)
+            
+            guard let homeViewController = self.homeViewController else {
+                
+                if #available(iOS 13, *) {
+                    UIApplication.shared.windows.first?.rootViewController?.present(viewController, animated: true)
+                } else {
+                    UIApplication.shared.keyWindow?.rootViewController?.present(viewController, animated: true)
+                }
+                
+                return
+            }
+            
+            homeViewController.present(viewController, animated: true)
+        }
+    }
 }
 
 
