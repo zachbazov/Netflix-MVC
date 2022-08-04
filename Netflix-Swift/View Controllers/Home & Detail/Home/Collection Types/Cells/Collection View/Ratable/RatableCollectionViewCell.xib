@@ -25,17 +25,34 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlf-he-CND">
+                        <rect key="frame" x="16" y="0.0" width="130" height="174"/>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oPl-Sy-fxt">
+                        <rect key="frame" x="24" y="84.5" width="114" height="57.5"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="LkF-ev-s4P" secondAttribute="trailing" id="0MG-EX-b3n"/>
+                    <constraint firstItem="oPl-Sy-fxt" firstAttribute="trailing" secondItem="LkF-ev-s4P" secondAttribute="trailing" constant="-8" id="1Hp-mB-meH"/>
+                    <constraint firstItem="tlf-he-CND" firstAttribute="top" secondItem="1vH-Bf-2t8" secondAttribute="top" id="EDt-Wm-TCl"/>
                     <constraint firstItem="LkF-ev-s4P" firstAttribute="top" secondItem="1vH-Bf-2t8" secondAttribute="top" id="NIz-kR-b22"/>
+                    <constraint firstItem="oPl-Sy-fxt" firstAttribute="leading" secondItem="LkF-ev-s4P" secondAttribute="leading" constant="8" id="OQy-WA-tyA"/>
                     <constraint firstAttribute="bottom" secondItem="LkF-ev-s4P" secondAttribute="bottom" id="OsE-zO-Tch"/>
+                    <constraint firstAttribute="bottom" secondItem="tlf-he-CND" secondAttribute="bottom" id="afd-gL-CoQ"/>
+                    <constraint firstItem="oPl-Sy-fxt" firstAttribute="height" secondItem="LkF-ev-s4P" secondAttribute="height" multiplier="0.33" id="dRk-rW-yXl"/>
                     <constraint firstItem="LkF-ev-s4P" firstAttribute="leading" secondItem="1vH-Bf-2t8" secondAttribute="leading" constant="16" id="elK-vP-koP"/>
+                    <constraint firstAttribute="trailing" secondItem="tlf-he-CND" secondAttribute="trailing" id="mkf-Fr-MKf"/>
+                    <constraint firstItem="tlf-he-CND" firstAttribute="leading" secondItem="LkF-ev-s4P" secondAttribute="leading" id="qQG-PH-bGp"/>
+                    <constraint firstAttribute="bottom" secondItem="oPl-Sy-fxt" secondAttribute="bottom" constant="32" id="tDh-yP-4Us"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="146" height="174"/>
             <connections>
                 <outlet property="coverImageView" destination="LkF-ev-s4P" id="qBK-8b-t1O"/>
+                <outlet property="coverOverlayView" destination="tlf-he-CND" id="fS0-WT-YTJ"/>
+                <outlet property="logoBottomConstraint" destination="tDh-yP-4Us" id="gzV-BJ-pzK"/>
+                <outlet property="logoImageView" destination="oPl-Sy-fxt" id="fBN-tv-1Uh"/>
             </connections>
             <point key="canvasLocation" x="24.637681159420293" y="61.607142857142854"/>
         </collectionViewCell>

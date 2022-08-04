@@ -14,11 +14,8 @@ class PrototypeViewController: UIViewController {
     // MARK: Properties
     
     override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
-    
     override var shouldAutorotate: Bool { true }
-    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
-    
     
     var segue: Segue = .init()
     
@@ -27,7 +24,6 @@ class PrototypeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.segue.delegate = self
     }
 }

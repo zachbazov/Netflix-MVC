@@ -15,7 +15,6 @@ enum APIResponse<T> {
 }
 
 
-
 // MARK: - AuthResponse
 
 struct AuthResponse: Decodable {
@@ -23,7 +22,6 @@ struct AuthResponse: Decodable {
     let token: String
     let data: UserViewModel
 }
-
 
 
 // MARK: - SectionResponse

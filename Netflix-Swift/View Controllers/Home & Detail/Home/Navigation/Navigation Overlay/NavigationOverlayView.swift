@@ -10,20 +10,12 @@ import UIKit
 // MARK: - NavigationOverlayViewDelegate
 
 protocol NavigationOverlayViewDelegate: AnyObject {
-    
     func navigationOverlayViewDidShow(_ navigationOverlayView: NavigationOverlayView)
-    
     func navigationOverlayViewDidHide(_ navigationOverlayView: NavigationOverlayView)
-    
-    
     func navigationOverlayViewWillChangeSnapshot(_ navigationView: NavigationView)
-    
     func navigationOverlayViewDidChangeSnapshot(_ navigationOverlayView: NavigationOverlayView)
-    
-    func navigationOverlayView(_ navigationView: NavigationView,
-                               didValidateBoundsFor tableView: UITableView)
+    func navigationOverlayView(_ navigationView: NavigationView, didValidateBoundsFor tableView: UITableView)
 }
-
 
 
 // MARK: - NavigationOverlayView
@@ -81,60 +73,40 @@ final class NavigationOverlayView: UIView, Nibable {
     // MARK: Properties
     
     @IBOutlet weak var contentView: UIView! = nil
-    
     @IBOutlet private(set) weak var tableView: UITableView! = nil
-    
     @IBOutlet private(set) weak var tableViewHeightConstraint: NSLayoutConstraint! = nil
-    
     @IBOutlet private weak var messageLabel: UILabel! = nil
-    
     @IBOutlet private(set) weak var dismissButton: UIButton! = nil
-    
     
     var currentSnapshot: Snapshot = .state {
         didSet {
-            guard let delegate = delegate else {
-                return
-            }
-            
+            guard let delegate = delegate else { return }
             delegate.navigationOverlayViewDidChangeSnapshot(self)
         }
     }
     
     var state: NavigationView.State = .tvShows
-    
     var category: Category = .home
-    
     
     var showsOverlay: Bool = false {
         didSet {
-            guard let delegate = delegate else {
-                return
-            }
-            
+            guard let delegate = delegate else { return }
             showsOverlay
                 ? delegate.navigationOverlayViewDidShow(self)
                 : delegate.navigationOverlayViewDidHide(self)
         }
     }
     
-    
     private(set) var blurryView: BlurryView! = nil
-    
     
     private(set) var snapshot: NavigationOverlayViewTableViewSnapshot! = nil
     
-    
     private(set) weak var delegate: NavigationOverlayViewDelegate! = nil
-    
     
     weak var homeViewController: HomeViewController! = nil {
         didSet {
-            guard blurryView == nil else {
-                return
-            }
-            
-            blurryView = .init(frame: UIScreen.main.bounds, contentView)
+            guard blurryView == nil else { return }
+            blurryView = BlurryView(frame: UIScreen.main.bounds, contentView)
         }
     }
     
@@ -143,19 +115,14 @@ final class NavigationOverlayView: UIView, Nibable {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.loadNib()
-        
         self.delegate = self
-        
         self.delegate.navigationOverlayViewDidChangeSnapshot(self)
     }
     
     deinit {
         snapshot = nil
-        
         delegate = nil
-        
         homeViewController = nil
     }
     
@@ -163,14 +130,10 @@ final class NavigationOverlayView: UIView, Nibable {
     // MARK: Action Outlets
     
     @IBAction func dismiss(_ sender: UIButton) {
-        guard let delegate = delegate else {
-            return
-        }
-        
+        guard let delegate = delegate else { return }
         delegate.navigationOverlayViewDidHide(self)
     }
 }
-
 
 
 // MARK: - NavigationOverlayViewDelegate Implemetation
@@ -181,10 +144,7 @@ extension NavigationOverlayView: NavigationOverlayViewDelegate {
         guard
             let homeViewController = navigationOverlayView.homeViewController,
             let tabBarController = homeViewController.tabBarController
-        else {
-            return
-        }
-        
+        else { return }
         UIView.animate(withDuration: 0.33) {
             navigationOverlayView.alpha = 1.0
             tabBarController.tabBar.alpha = 0.0
@@ -195,10 +155,7 @@ extension NavigationOverlayView: NavigationOverlayViewDelegate {
         guard
             let homeViewController = navigationOverlayView.homeViewController,
             let tabBarController = homeViewController.tabBarController
-        else {
-            return
-        }
-        
+        else { return }
         UIView.animate(withDuration: 0.33) {
             navigationOverlayView.alpha = 0.0
             tabBarController.tabBar.alpha = 1.0
@@ -211,48 +168,33 @@ extension NavigationOverlayView: NavigationOverlayViewDelegate {
             let state = navigationView.state as NavigationView.State?,
             let homeViewController = navigationView.homeViewController,
             let navigationOverlayView = homeViewController.navigationOverlayView
-        else {
-            return
-        }
-        
+        else { return }
         switch state {
         case .home,
                 .tvShows,
                 .movies:
-            
             navigationOverlayView.currentSnapshot = .state
-            
         case .categories,
                 .tvShowsAllCategories,
                 .moviesAllCategories:
-            
             navigationOverlayView.currentSnapshot = .category
         }
     }
     
     func navigationOverlayViewDidChangeSnapshot(_ navigationOverlayView: NavigationOverlayView) {
-        
         snapshot = nil
-        
         switch currentSnapshot {
         case .state:
-            
             var states = NavigationView.State.allCases
             let slice = states[0..<3]
             states = Array(slice)
-            
-            snapshot = .init(items: states, navigationOverlayView: self)
-            
+            snapshot = NavigationOverlayViewTableViewSnapshot(items: states, navigationOverlayView: self)
         case .category:
-            
             let categories = Category.allCases
-            
-            snapshot = .init(items: categories, navigationOverlayView: self)
+            snapshot = NavigationOverlayViewTableViewSnapshot(items: categories, navigationOverlayView: self)
         }
-        
         tableView.delegate = snapshot
         tableView.dataSource = snapshot
-        
         tableView.reloadData()
     }
     
@@ -262,28 +204,19 @@ extension NavigationOverlayView: NavigationOverlayViewDelegate {
             let homeViewController = navigationView.homeViewController,
             let navigationOverlayView = homeViewController.navigationOverlayView,
             let tableViewHeightConstraint = navigationOverlayView.tableViewHeightConstraint
-        else {
-            return
-        }
-        
-        let rowHeight: CGFloat = 64.0
-        
+        else { return }
+        let rowHeight = CGFloat(64.0)
         switch state {
         case .home,
                 .tvShows,
                 .movies:
-            
-            tableView.contentInset = .init(top: .zero, left: .zero, bottom: .zero, right: .zero)
-            
+            tableView.contentInset = UIEdgeInsets(top: .zero, left: .zero, bottom: .zero, right: .zero)
             tableViewHeightConstraint.constant = max(rowHeight,
                                                      rowHeight * CGFloat(navigationOverlayView.snapshot.items.count))
-            
         case .categories,
                 .tvShowsAllCategories,
                 .moviesAllCategories:
-            
-            tableView.contentInset = .init(top: rowHeight, left: .zero, bottom: rowHeight * 2, right: .zero)
-            
+            tableView.contentInset = UIEdgeInsets(top: rowHeight, left: .zero, bottom: rowHeight * 2, right: .zero)
             tableViewHeightConstraint.constant = max(rowHeight,
                                                      rowHeight * CGFloat(navigationOverlayView.snapshot.items.count))
         }

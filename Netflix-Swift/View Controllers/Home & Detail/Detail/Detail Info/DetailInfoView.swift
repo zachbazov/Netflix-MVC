@@ -14,7 +14,6 @@ protocol DetailInfoViewDelegate: AnyObject {
 }
 
 
-
 // MARK: - DetailInfoView
 
 final class DetailInfoView: UIView, Nibable {
@@ -22,33 +21,20 @@ final class DetailInfoView: UIView, Nibable {
     // MARK: Properties
     
     @IBOutlet weak var contentView: UIView! = nil
-    
     @IBOutlet private weak var gradientView: UIView! = nil
-    
     @IBOutlet private weak var titleLabel: UILabel! = nil
-    
     @IBOutlet private weak var yearLabel: UILabel! = nil
-    
     @IBOutlet private weak var ageRestrictionView: AgeRestrictionView! = nil
-    
     @IBOutlet private weak var lengthLabel: UILabel! = nil
-    
     @IBOutlet private weak var hdView: HDView! = nil
-    
     @IBOutlet private weak var playButton: UIButton! = nil
-    
     @IBOutlet private weak var downloadButton: UIButton! = nil
-    
     
     weak var delegate: DetailInfoViewDelegate! = nil
     
-    
     weak var detailViewController: DetailViewController! = nil {
         didSet {
-            guard let delegate = delegate else {
-                return
-            }
-            
+            guard let delegate = delegate else { return }
             delegate.detailInfoViewDidSetup(self)
         }
     }
@@ -58,11 +44,8 @@ final class DetailInfoView: UIView, Nibable {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.loadNib()
-        
         self.delegate = self
-        
         self.gradientView.addGradientLayer(frame: gradientView.bounds,
                                            colors: [.init(red: 25.0/255,
                                                           green: 25.0/255,
@@ -90,7 +73,6 @@ final class DetailInfoView: UIView, Nibable {
 }
 
 
-
 // MARK: - DetailInfoViewDelegate Implementation
 
 extension DetailInfoView: DetailInfoViewDelegate {
@@ -100,44 +82,30 @@ extension DetailInfoView: DetailInfoViewDelegate {
             let detailViewController = detailViewController,
             let homeViewController = detailViewController.homeViewController,
             let homeViewModel = homeViewController.homeViewModel as HomeViewModel?
-        else {
-            return
-        }
-        
+        else { return }
         guard
             let media = homeViewModel.detailMedia,
             let title = media.title,
             let downloadTitle = "Download \(title)" as String?
-        else {
-            return
-        }
-        
+        else { return }
         detailInfoView.titleLabel.text = media.title
-        
         switch homeViewModel.currentSnapshot {
         case .tvShows:
-            
             guard let duration = media.duration else {
                 detailInfoView.yearLabel.text = "N/A"
                 return
             }
-            
             detailInfoView.yearLabel.text = String(describing: duration)
             detailInfoView.lengthLabel.text = String(describing: media.seasonCount!)
-            
         case .movies:
-            
             guard let year = media.year else {
                 detailInfoView.yearLabel.text = "N/A"
                 return
             }
-            
             detailInfoView.yearLabel.text = String(describing: year)
             detailInfoView.lengthLabel.text = media.length
         }
-        
         _ = detailInfoView.hdView.isHidden ? (media.isHD ?? true) : false
-        
         detailInfoView.downloadButton.setTitle(downloadTitle, for: .normal)
     }
 }

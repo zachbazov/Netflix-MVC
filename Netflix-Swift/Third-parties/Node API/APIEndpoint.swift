@@ -10,14 +10,11 @@ import Foundation
 // MARK: - Endpoint
 
 struct Endpoint {
-    
     let path: String
     let queryItems: [URLQueryItem]
-    
     let scheme: String = "https"
     let host: String = "netflix-swift-api.herokuapp.com"
 }
-
 
 
 extension Endpoint {
@@ -48,7 +45,6 @@ extension Endpoint {
 }
 
 
-
 extension Endpoint {
     
     var url: URL? {
@@ -57,19 +53,14 @@ extension Endpoint {
         components.host = host
         components.path = path
         components.queryItems = queryItems
-        
         return components.url
     }
 }
 
 
-
 extension URL {
     init(staticString string: StaticString) {
-        guard let url = URL(string: "\(string)") else {
-            preconditionFailure("Invalid static URL string: \(string)")
-        }
-        
+        guard let url = URL(string: "\(string)") else { preconditionFailure("Invalid static URL string: \(string)") }
         self = url
     }
 }

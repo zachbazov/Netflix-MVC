@@ -11,6 +11,6 @@ import Foundation
 
 extension IndexPath {
     static var first: IndexPath {
-        return .init(row: 0, section: 0)
+        return IndexPath(row: 0, section: 0)
     }
 }

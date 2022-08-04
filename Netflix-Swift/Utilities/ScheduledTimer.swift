@@ -10,27 +10,19 @@ import Foundation
 // MARK: - Schedulable
 
 protocol Schedulable {
-    
     var timer: Timer! { get set }
-    
     var timeInterval: TimeInterval { get }
-    
     var repeats: Bool { get }
 }
-
 
 
 // MARK: - ScheduledTimerDelegate
 
 protocol ScheduledTimerDelegate: AnyObject {
-    
     func scheduledTimer(timeInterval: TimeInterval, target: Any, selector: Selector, repeats: Bool)
-    
     func invalidateTimer()
-    
     func startTimer()
 }
-
 
 
 // MARK: - ScheduledTimer
@@ -47,14 +39,10 @@ final class ScheduledTimer: Schedulable {
     // MARK: Properties
     
     var timer: Timer! = nil
-    
     var timeInterval: TimeInterval
-    
     var repeats: Bool
     
-    
     private(set) weak var delegate: ScheduledTimerDelegate! = nil
-    
     private weak var detailViewController: DetailViewController! = nil
     
     
@@ -63,7 +51,6 @@ final class ScheduledTimer: Schedulable {
     private init(timeInterval: TimeInterval, repeats: Bool) {
         self.timeInterval = timeInterval
         self.repeats = repeats
-        
         self.delegate = self
     }
     
@@ -71,7 +58,6 @@ final class ScheduledTimer: Schedulable {
         switch state {
         case .mediaOverlay:
             self.init(timeInterval: 3.0, repeats: true)
-            
             self.detailViewController = detailViewController
         }
     }
@@ -93,17 +79,12 @@ extension ScheduledTimer: ScheduledTimerDelegate {
                         target: Any,
                         selector: Selector,
                         repeats: Bool) {
-        
         invalidateTimer()
-        
-        timer = .scheduledTimer(timeInterval: timeInterval, target: target, selector: selector, userInfo: nil, repeats: repeats)
+        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: target, selector: selector, userInfo: nil, repeats: repeats)
     }
     
     func invalidateTimer() {
-        guard timer != nil else {
-            return
-        }
-        
+        guard timer != nil else { return }
         timer.invalidate()
         timer = nil
     }
@@ -113,10 +94,7 @@ extension ScheduledTimer: ScheduledTimerDelegate {
             let detailViewController = detailViewController,
             let mediaPlayerView = detailViewController.detailPreviewView.mediaPlayerView,
             let mediaOverlayView = mediaPlayerView.mediaOverlayView
-        else {
-            return
-        }
-        
+        else { return }
         timer = Timer.scheduledTimer(timeInterval: mediaPlayerView.configuration.overlayDuration,
                                      target: mediaOverlayView,
                                      selector: #selector(mediaOverlayView.delegate?.mediaOverlayViewDidHide),

@@ -10,12 +10,10 @@ import UIKit
 // MARK: - StatusBarBackgroundViewDelegate
 
 protocol StatusBarBackgroundViewDelegate: AnyObject {
-    
     func statusBarBackgroundView(_ statusBarBackgroundView: StatusBarBackgroundView,
                                  willChange color: UIColor,
                                  withAlphaComponent alpha: CGFloat)
 }
-
 
 
 // MARK: - StatusBarBackgroundView

@@ -10,7 +10,7 @@
         <!--Authentication-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="AuthViewController" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="overFullScreen" id="Y6W-OH-hqX" customClass="IntroViewController" customModule="Netflix_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IntroViewController" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="overFullScreen" id="Y6W-OH-hqX" customClass="IntroViewController" customModule="Netflix_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HOo-kF-S1h"/>
                         <viewControllerLayoutGuide type="bottom" id="KnG-5p-W48"/>
@@ -250,11 +250,22 @@
                         <outlet property="passwordConfirmTextfield" destination="kpt-5X-CMO" id="jhO-e4-AaF"/>
                         <outlet property="passwordTextfield" destination="SE5-K3-c6s" id="35Y-Zp-e1i"/>
                         <outlet property="signUpButton" destination="d4E-JH-MEi" id="ksc-ts-VLx"/>
+                        <segue destination="9E3-hQ-n1Z" kind="show" identifier="HomeTabBarController" id="XSi-sr-qfd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cvj-O7-9ml" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1996" y="427"/>
+        </scene>
+        <!--HomeTabBarController-->
+        <scene sceneID="ya7-VQ-PNc">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" referencedIdentifier="HomeTabBarController" id="9E3-hQ-n1Z" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="TUw-kU-AO2"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="34j-Og-W4v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3375" y="68"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="YQ1-2N-tLN">
@@ -366,6 +377,7 @@
                         <outlet property="emailTextfield" destination="ecE-4b-fFW" id="VSt-oE-svn"/>
                         <outlet property="passwordTextfield" destination="UfC-GM-HCf" id="Xh3-vd-Ajp"/>
                         <outlet property="signInButton" destination="zjm-dZ-kpk" id="zqz-Sw-bVS"/>
+                        <segue destination="9E3-hQ-n1Z" kind="show" identifier="HomeTabBarController" id="DbY-oA-h9X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e4F-VJ-x4a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -395,6 +407,9 @@
             <point key="canvasLocation" x="124.6376811594203" y="67.633928571428569"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="DbY-oA-h9X"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="authbg" width="2000" height="1125"/>

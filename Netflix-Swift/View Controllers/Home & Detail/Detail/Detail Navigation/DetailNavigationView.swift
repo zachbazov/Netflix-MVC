@@ -10,13 +10,9 @@ import UIKit
 // MARK: - DetailNavigationViewDelegate
 
 protocol DetailNavigationViewDelegate: AnyObject {
-    
     func detailNavigationViewDidSetup(_ detailNavigationView: DetailNavigationView)
-    
-    func detailNavigationView(_ detailNavigationView: DetailNavigationView,
-                              stateDidChange state: DetailNavigationView.State)
+    func detailNavigationView(_ detailNavigationView: DetailNavigationView, stateDidChange state: DetailNavigationView.State)
 }
-
 
 
 // MARK: - DetailNavigationView
@@ -34,19 +30,12 @@ final class DetailNavigationView: UIView, Nibable {
     // MARK: Properties
     
     @IBOutlet weak var contentView: UIView! = nil
-    
     @IBOutlet private weak var leadingIndicator: UIView! = nil
-    
     @IBOutlet private weak var leadingButton: UIView! = nil
-    
     @IBOutlet private weak var trailingIndicator: UIView! = nil
-    
     @IBOutlet private weak var trailingButton: UIView! = nil
-    
     @IBOutlet private weak var leadingIndicatorWidthConstraint: NSLayoutConstraint! = nil
-    
     @IBOutlet private weak var trailingIndicatorWidthConstraint: NSLayoutConstraint! = nil
-    
     
     weak var delegate: DetailNavigationViewDelegate! = nil
     
@@ -55,11 +44,8 @@ final class DetailNavigationView: UIView, Nibable {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.loadNib()
-        
         self.delegate = self
-        
         self.delegate.detailNavigationViewDidSetup(self)
     }
     
@@ -70,14 +56,10 @@ final class DetailNavigationView: UIView, Nibable {
         guard
             let state: State = .init(rawValue: sender.tag),
             let delegate = delegate
-        else {
-            return
-        }
-        
+        else { return }
         delegate.detailNavigationView(self, stateDidChange: state)
     }
 }
-
 
 
 // MARK: - DetailNavigationViewDelegate Implementation
@@ -85,9 +67,7 @@ final class DetailNavigationView: UIView, Nibable {
 extension DetailNavigationView: DetailNavigationViewDelegate {
     
     func detailNavigationViewDidSetup(_ detailNavigationView: DetailNavigationView) {
-        
         let negativeWidth = -trailingButton.bounds.size.width
-        
         detailNavigationView.leadingIndicatorWidthConstraint.constant = .zero
         detailNavigationView.trailingIndicatorWidthConstraint.constant = negativeWidth
     }
@@ -96,27 +76,17 @@ extension DetailNavigationView: DetailNavigationViewDelegate {
                               stateDidChange state: DetailNavigationView.State) {
         switch state {
         case .moreLikeThis:
-            
             let negativeWidth = -trailingButton.bounds.size.width
-            
             leadingIndicatorWidthConstraint.constant = .zero
             trailingIndicatorWidthConstraint.constant = negativeWidth
-            
         case .trailersNmore:
-            
             let negativeWidth = -leadingButton.bounds.size.width
-            
             leadingIndicatorWidthConstraint.constant = negativeWidth
             trailingIndicatorWidthConstraint.constant = .zero
         }
-        
         let duration = TimeInterval(0.5)
-        
         UIView.animate(withDuration: duration) { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
+            guard let self = self else { return }
             self.contentView.layoutIfNeeded()
         }
     }

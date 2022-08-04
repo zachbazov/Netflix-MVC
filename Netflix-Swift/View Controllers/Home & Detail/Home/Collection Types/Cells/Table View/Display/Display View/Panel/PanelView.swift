@@ -14,7 +14,6 @@ protocol PanelViewDelegate: AnyObject {
 }
 
 
-
 // MARK: - PanelView
 
 final class PanelView: UIView, Nibable {
@@ -29,22 +28,15 @@ final class PanelView: UIView, Nibable {
     // MARK: Properties
     
     @IBOutlet weak var contentView: UIView! = nil
-    
     @IBOutlet private weak var playButton: UIButton! = nil
-    
     @IBOutlet private(set) weak var leadingPanelButton: PanelItemView! = nil
-    
     @IBOutlet private(set) weak var trailingPanelButton: PanelItemView! = nil
-    
     
     weak var delegate: PanelViewDelegate! = nil
     
     weak var homeViewController: HomeViewController! = nil {
         didSet {
-            guard let delegate = delegate else {
-                return
-            }
-            
+            guard let delegate = delegate else { return }
             delegate.panelViewDidConfigureButton(self)
         }
     }
@@ -54,9 +46,7 @@ final class PanelView: UIView, Nibable {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.loadNib()
-        
         self.delegate = self
     }
     
@@ -70,22 +60,16 @@ final class PanelView: UIView, Nibable {
     
     @IBAction func playDidTap(_ sender: UIButton) {
         guard
-            let item: Item = .init(rawValue: sender.tag),
+            let item = Item(rawValue: sender.tag),
             let homeViewController = homeViewController
-        else {
-            return
-        }
-        
+        else { return }
         if item == .play {
             homeViewController.homeViewModel.detailMedia = homeViewController.homeViewModel.displayMedia
-            
             homeViewController.segue.current = .detail
-            
             UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
         }
     }
 }
-
 
 
 // MARK: - PanelViewDelegate Implementation
@@ -93,10 +77,7 @@ final class PanelView: UIView, Nibable {
 extension PanelView: PanelViewDelegate {
     
     func panelViewDidConfigureButton(_ panelView: PanelView) {
-        guard let homeViewController = homeViewController else {
-            return
-        }
-        
+        guard let homeViewController = homeViewController else { return }
         homeViewController.homeViewModel.currentSnapshot == .tvShows
             ? playButton.setTitle("Play", for: .normal)
             : playButton.setTitle("Trailer", for: .normal)

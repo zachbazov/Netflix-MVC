@@ -25,25 +25,44 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AVo-cV-xcJ">
+                        <rect key="frame" x="0.0" y="0.0" width="176" height="292"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZY-o5-SIA" userLabel="Gradient View">
                         <rect key="frame" x="0.0" y="195.5" width="176" height="96.5"/>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BVY-d7-7ee">
+                        <rect key="frame" x="8" y="180" width="160" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="64" id="h6h-52-cJx"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="dZY-o5-SIA" firstAttribute="height" secondItem="QdL-qB-okC" secondAttribute="height" multiplier="0.33" constant="0.25" id="7Gc-YU-C0A"/>
+                    <constraint firstAttribute="trailing" secondItem="BVY-d7-7ee" secondAttribute="trailing" constant="8" id="8Pt-L1-tVQ"/>
+                    <constraint firstItem="AVo-cV-xcJ" firstAttribute="top" secondItem="QdL-qB-okC" secondAttribute="top" id="9E7-lV-qgF"/>
                     <constraint firstAttribute="trailing" secondItem="dZY-o5-SIA" secondAttribute="trailing" id="GRb-gf-7xG"/>
                     <constraint firstAttribute="bottom" secondItem="Dbq-S3-6qi" secondAttribute="bottom" id="HSl-xY-FxX"/>
+                    <constraint firstAttribute="bottom" secondItem="AVo-cV-xcJ" secondAttribute="bottom" id="Na0-JK-ZyT"/>
                     <constraint firstAttribute="bottom" secondItem="dZY-o5-SIA" secondAttribute="bottom" id="Ozk-2t-Ke3"/>
+                    <constraint firstAttribute="trailing" secondItem="AVo-cV-xcJ" secondAttribute="trailing" id="RXH-3i-ZqA"/>
+                    <constraint firstItem="AVo-cV-xcJ" firstAttribute="leading" secondItem="QdL-qB-okC" secondAttribute="leading" id="Vhh-b7-18L"/>
                     <constraint firstItem="Dbq-S3-6qi" firstAttribute="top" secondItem="QdL-qB-okC" secondAttribute="top" id="Xdu-8l-MRC"/>
+                    <constraint firstAttribute="bottom" secondItem="BVY-d7-7ee" secondAttribute="bottom" constant="48" id="acw-u7-VnG"/>
                     <constraint firstItem="Dbq-S3-6qi" firstAttribute="leading" secondItem="QdL-qB-okC" secondAttribute="leading" id="cT7-vl-Kp0"/>
                     <constraint firstAttribute="trailing" secondItem="Dbq-S3-6qi" secondAttribute="trailing" id="cpQ-jQ-JKu"/>
+                    <constraint firstItem="BVY-d7-7ee" firstAttribute="leading" secondItem="QdL-qB-okC" secondAttribute="leading" constant="8" id="pLA-fm-Zzp"/>
                     <constraint firstItem="dZY-o5-SIA" firstAttribute="leading" secondItem="QdL-qB-okC" secondAttribute="leading" id="zVl-ob-zWp"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="176" height="292"/>
             <connections>
                 <outlet property="coverImageView" destination="Dbq-S3-6qi" id="j1w-cU-yVu"/>
+                <outlet property="coverOverlayView" destination="AVo-cV-xcJ" id="JGE-hz-AjT"/>
                 <outlet property="gradientView" destination="dZY-o5-SIA" id="IQ3-c8-wvt"/>
+                <outlet property="logoBottomConstraint" destination="acw-u7-VnG" id="DXd-8a-Rfc"/>
+                <outlet property="logoImageView" destination="BVY-d7-7ee" id="p4h-D5-5Z4"/>
             </connections>
             <point key="canvasLocation" x="321.73913043478262" y="57.589285714285708"/>
         </collectionViewCell>

@@ -14,7 +14,6 @@ protocol DetailDescriptionViewDelegate: AnyObject {
 }
 
 
-
 // MARK: - DetailDescriptionView
 
 final class DetailDescriptionView: UIView, Nibable {
@@ -22,23 +21,15 @@ final class DetailDescriptionView: UIView, Nibable {
     // MARK: Properties
     
     @IBOutlet weak var contentView: UIView! = nil
-    
     @IBOutlet private weak var descriptionTextView: UITextView! = nil
-    
     @IBOutlet private weak var castLabel: UILabel! = nil
-    
     @IBOutlet private weak var writersLabel: UILabel! = nil
-    
     
     weak var delegate: DetailDescriptionViewDelegate! = nil
     
-    
     weak var detailViewController: DetailViewController! = nil {
         didSet {
-            guard let delegate = delegate else {
-                return
-            }
-            
+            guard let delegate = delegate else { return }
             delegate.detailDescriptionViewDidSetup(self)
         }
     }
@@ -48,9 +39,7 @@ final class DetailDescriptionView: UIView, Nibable {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.loadNib()
-        
         self.delegate = self
     }
     
@@ -59,7 +48,6 @@ final class DetailDescriptionView: UIView, Nibable {
         detailViewController = nil
     }
 }
-
 
 
 // MARK: - DetailDescriptionViewDelegate Implementation
@@ -71,19 +59,11 @@ extension DetailDescriptionView: DetailDescriptionViewDelegate {
             let detailViewController = detailViewController,
             let homeViewController = detailViewController.homeViewController,
             let homeViewModel = homeViewController.homeViewModel as HomeViewModel?
-        else {
-            return
-        }
-        
-        guard let media = homeViewModel.detailMedia else {
-            return
-        }
-        
+        else { return }
+        guard let media = homeViewModel.detailMedia else { return }
         detailDescriptionView.descriptionTextView.text = media.description
         detailDescriptionView.descriptionTextView.flashScrollIndicators()
-        
         detailDescriptionView.castLabel.text = "Cast: \(media.cast ?? "N/A")"
-        
         switch homeViewModel.currentSnapshot {
         case .tvShows:
             break

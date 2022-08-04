@@ -21,14 +21,10 @@ class TableViewCell<Cell>: UITableViewCell, Configurable where Cell: UICollectio
     // MARK: Properties
     
     var collectionView: UICollectionView! = nil
-    
     var section: SectionViewModel! = nil
     
-    
     var dataSet: CollectionViewSnapshotDataSet<Cell>! = nil
-    
     var snapshot: CollectionViewSnapshot<Cell, CollectionViewSnapshotDataSet<Cell>>! = nil
-    
     
     weak var homeViewController: HomeViewController! = nil
     
@@ -37,9 +33,22 @@ class TableViewCell<Cell>: UITableViewCell, Configurable where Cell: UICollectio
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: TableViewCell.reuseIdentifier)
-        
         self.backgroundColor = .black
         self.contentView.backgroundColor = .black
+        let dummyLayout = ComputableFlowLayout(.original)
+        self.collectionView = UICollectionView(frame: bounds, collectionViewLayout: dummyLayout)
+        self.collectionView.backgroundColor = .black
+        self.collectionView.showsVerticalScrollIndicator = false
+        self.collectionView.showsHorizontalScrollIndicator = false
+        self.contentView.addSubview(collectionView)
+        self.collectionView.register(Cell.nib, forCellWithReuseIdentifier: Cell.reuseIdentifier)
+        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            self.collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            self.collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            self.collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
     }
     
     required init?(coder: NSCoder) {
@@ -58,100 +67,55 @@ class TableViewCell<Cell>: UITableViewCell, Configurable where Cell: UICollectio
     //
     
     func configure(_ section: SectionViewModel? = nil, with homeViewController: HomeViewController? = nil) {
-        
         if let homeViewController = homeViewController {
-            
             self.homeViewController = homeViewController
-            
             self.section = section
-            
-            let dummyLayout: ComputableFlowLayout = .init(.original)
-            
-            self.collectionView = .init(frame: bounds, collectionViewLayout: dummyLayout)
-            self.collectionView.backgroundColor = .black
-            self.collectionView.showsVerticalScrollIndicator = false
-            self.collectionView.showsHorizontalScrollIndicator = false
-            
-            self.contentView.addSubview(collectionView)
-            
-            self.collectionView.register(Cell.nib, forCellWithReuseIdentifier: Cell.reuseIdentifier)
-            
-            collectionView.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-            ])
-            
-            
-            let index: SectionIndices? = .init(rawValue: self.section.id)
+            let index = SectionIndices(rawValue: self.section.id)
             let layout: ComputableFlowLayout
-            
             switch index {
             case .display:
                 break
             case .ratable:
                 self.section = self.sort(.rating, sliceBy: 10)
-                
-                layout = .init(.original)
-                self.collectionView.setCollectionViewLayout(layout, animated: false)
+                layout = ComputableFlowLayout(.original)
+                collectionView.setCollectionViewLayout(layout, animated: false)
             case .resumable:
-                
-                layout = .init(.standard)
-                self.collectionView.setCollectionViewLayout(layout, animated: false)
+                layout = ComputableFlowLayout(.standard)
+                collectionView.setCollectionViewLayout(layout, animated: false)
             case .blockbuster:
-                
-                layout = .init(.blockbuster)
-                self.collectionView.setCollectionViewLayout(layout, animated: false)
+                layout = ComputableFlowLayout(.blockbuster)
+                collectionView.setCollectionViewLayout(layout, animated: false)
             case .myList:
-                layout = .init(.standard)
-                DispatchQueue.main.async {
-                    
-                    self.collectionView?.setCollectionViewLayout(layout, animated: false)
-                }
+                layout = ComputableFlowLayout(.standard)
+                collectionView?.setCollectionViewLayout(layout, animated: false)
             default:
-                
-                layout = .init(.standard)
-                self.collectionView.setCollectionViewLayout(layout, animated: false)
-                
-                self.dataSet = .init(self.section, for: self, with: homeViewController)
-                self.snapshot = .init(self.dataSet, with: homeViewController)
-                
+                layout = ComputableFlowLayout(.standard)
+                collectionView.setCollectionViewLayout(layout, animated: false)
+                dataSet = .init(self.section, homeViewController: homeViewController, standardCell: self)
+                snapshot = .init(self.dataSet, homeViewController)
                 DispatchQueue.main.async { [weak self] in
-                    guard let self = self else {
-                        return
-                    }
-                    
+                    guard let self = self else { return }
                     self.collectionView.delegate = self.snapshot
                     self.collectionView.dataSource = self.snapshot
                     self.collectionView.prefetchDataSource = self.snapshot
-                    
                     self.collectionView.reloadData()
                 }
-                
                 return
             }
-            
-            self.dataSet = .init(self.section, requireMyList: index == .myList ? true : false, with: homeViewController)
-            self.snapshot = .init(self.dataSet, with: homeViewController)
-            
+            dataSet = .init(self.section,
+                                 homeViewController: homeViewController,
+                                 loadsMyList: index == .myList ? true : false)
+            snapshot = .init(dataSet, homeViewController)
             DispatchQueue.main.async { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                
+                guard let self = self else { return }
                 self.collectionView.delegate = self.snapshot
                 self.collectionView.dataSource = self.snapshot
                 self.collectionView.prefetchDataSource = self.snapshot
-                
                 self.collectionView.reloadData()
             }
         }
     }
 }
-
 
 
 // MARK: - Mutable
@@ -162,7 +126,7 @@ extension TableViewCell: Mutable {
         switch sortOptions {
         case .rating:
             homeViewController.homeViewModel.currentSnapshot == .tvShows ? {
-                section.media = section.media.sorted {
+                section.tvshows = section.tvshows.sorted {
                     return $0.rating! > $1.rating!
                 }
             }() : {
@@ -170,30 +134,29 @@ extension TableViewCell: Mutable {
                     return $0.rating! > $1.rating!
                 }
             }()
-            
             if let length = length as Int? {
-                let slice = homeViewController.homeViewModel.currentSnapshot == .tvShows ? section.media.prefix(length) : section.movies.prefix(length)
-                
+                let slice = homeViewController.homeViewModel.currentSnapshot == .tvShows
+                    ? section.tvshows.prefix(length)
+                    : section.movies.prefix(length)
                 homeViewController.homeViewModel.currentSnapshot == .tvShows ? {
-                    section.media = Array(slice)
+                    section.tvshows = Array(slice)
                 }() : {
                     section.movies = Array(slice)
                 }()
             }
-            
             return section
         }
     }
     
     func slice(_ length: Int) -> SectionViewModel? {
-        let slice = homeViewController.homeViewModel.currentSnapshot == .tvShows ? section.media.prefix(length) : section.movies.prefix(length)
-        
+        let slice = homeViewController.homeViewModel.currentSnapshot == .tvShows
+            ? section.tvshows.prefix(length)
+            : section.movies.prefix(length)
         homeViewController.homeViewModel.currentSnapshot == .tvShows ? {
-            section.media = Array(slice)
+            section.tvshows = Array(slice)
         }() : {
             section.movies = Array(slice)
         }()
-        
         return section
     }
 }

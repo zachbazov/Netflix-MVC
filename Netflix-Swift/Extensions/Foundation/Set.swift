@@ -10,7 +10,6 @@ import Foundation
 // MARK: ListKey
 
 enum ListKey: String {
-    
     case tvShows = "TVShowsMyListKey",
          movies = "MoviesMyListKey"
 }
@@ -30,10 +29,7 @@ extension Set where Element: Mediable {
     }
     
     mutating func decode(for key: ListKey) {
-        guard let data = UserDefaults.standard.value(forKey: key.rawValue) as? Data else {
-            return
-        }
-        
+        guard let data = UserDefaults.standard.value(forKey: key.rawValue) as? Data else { return }
         self = try! PropertyListDecoder().decode(Set<Element>.self, from: data)
     }
 }

@@ -15,7 +15,6 @@ extension UICollectionView {
         guard let cell = dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: .first) as? T else {
             fatalError("Unable to dequeue cell of type \(T.reuseIdentifier).")
         }
-        
         return cell
     }
     
@@ -23,7 +22,6 @@ extension UICollectionView {
         guard let cell = dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
             fatalError("Unable to dequeue cell of type \(T.reuseIdentifier).")
         }
-        
         return cell
     }
 }

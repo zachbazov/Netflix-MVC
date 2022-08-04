@@ -24,7 +24,6 @@ protocol APIServiceDelegate: AnyObject {
 }
 
 
-
 // MARK: - APIService
 
 final class APIService {
@@ -33,9 +32,7 @@ final class APIService {
     
     static var shared: APIService = .init()
     
-    
     var authentication: APIAuthentication = .init()
-    
     
     weak var delegate: APIServiceDelegate! = nil
     
@@ -46,7 +43,6 @@ final class APIService {
         self.delegate = self
     }
 }
-
 
 
 // MARK: - APIServiceDelegate Implementation
@@ -63,24 +59,17 @@ extension APIService: APIServiceDelegate {
                 completion(.failure(.custom(message: "Invalid URL")))
             }
         }
-        
         var request: URLRequest = .init(url: url)
-        
         request.httpMethod = method.rawValue
-        
         request.setValue("application/json", forHTTPHeaderField: "content-type")
-        
         URLSession.shared.dataTask(with: request) { data, res, err in
-            
             if let err = err {
                 return DispatchQueue.main.async {
-                    completion(.failure(.custom(message: err.localizedDescription)))
+                    completion(.failure(.custom(message: "\(err)")))
                 }
             }
-            
             let statusCode = (res as! HTTPURLResponse).statusCode
             print("APIService.statusCode", statusCode)
-            
             switch statusCode {
             case 401:
                 return DispatchQueue.main.async {
@@ -90,36 +79,27 @@ extension APIService: APIServiceDelegate {
                 return DispatchQueue.main.async {
                     completion(.failure(.custom(message: "Not found")))
                 }
-            default:
-                break
+            default: break
             }
-            
             guard
                 let response = res as? HTTPURLResponse,
                 response.statusCode == 200,
                 let data = data
-            else {
-                return
-            }
-            
-            let decoder: JSONDecoder = .init()
+            else { return }
+            let decoder = JSONDecoder()
             let decoded: T
-            
             do {
                 switch type {
                 case let type as SectionResponse.Type:
                     decoded = try decoder.decode(type, from: data) as! T
-                    
                     return DispatchQueue.main.async {
                         completion(.success(decoded))
                     }
-                    
-                default:
-                    break
+                default: break
                 }
             } catch let err {
                 return DispatchQueue.main.async {
-                    completion(.failure(.custom(message: err.localizedDescription)))
+                    completion(.failure(.custom(message: "\(err)")))
                 }
             }
         }.resume()

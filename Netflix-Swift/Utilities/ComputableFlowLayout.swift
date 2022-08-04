@@ -10,20 +10,13 @@ import UIKit
 // MARK: - Computable
 
 protocol Computable {
-    
     var itemsPerLine: Int { get }
-    
     var lines: Int { get }
-    
     var width: CGFloat { get }
-    
     var height: CGFloat { get }
-    
     var cellSpacing: CGFloat { get }
-    
     var lineSpacing: CGFloat { get }
 }
-
 
 
 // MARK: - ComputableFlowLayout
@@ -49,9 +42,7 @@ open class ComputableFlowLayout: UICollectionViewFlowLayout, Computable {
     private var state: State = .original
     
     open var itemsPerLine: Int = 3
-    
     open var lines: Int = 1
-    
     open var cellSpacing: CGFloat {
         get {
             switch state {
@@ -63,7 +54,6 @@ open class ComputableFlowLayout: UICollectionViewFlowLayout, Computable {
         }
         set {}
     }
-    
     open var lineSpacing: CGFloat = 8.0
     
     var width: CGFloat {
@@ -73,13 +63,14 @@ open class ComputableFlowLayout: UICollectionViewFlowLayout, Computable {
                 return collectionView!.bounds.width / .init(itemsPerLine) - cellSpacing
             case .homeOverlay:
                 return (collectionView!.bounds.width / .init(lines)) - (lineSpacing * .init(itemsPerLine))
+            case .blockbuster:
+                return collectionView!.bounds.width / .init(itemsPerLine)
             default:
                 return collectionView!.bounds.width / .init(itemsPerLine)
             }
         }
         set {}
     }
-    
     var height: CGFloat {
         get {
             switch state {
@@ -98,9 +89,7 @@ open class ComputableFlowLayout: UICollectionViewFlowLayout, Computable {
     
     convenience init(_ state: State, _ scrollDirection: ScrollDirection? = .horizontal) {
         self.init()
-        
         self.state = state
-        
         self.scrollDirection = scrollDirection == .horizontal ? .horizontal : .vertical
     }
     
@@ -109,12 +98,10 @@ open class ComputableFlowLayout: UICollectionViewFlowLayout, Computable {
     
     open override func prepare() {
         super.prepare()
-        
         minimumLineSpacing = .zero
         minimumInteritemSpacing = .zero
         sectionInset = .zero
         itemSize = .init(width: width, height: height - lineSpacing)
-        
         switch state {
         case .detail:
             minimumLineSpacing = lineSpacing
@@ -141,7 +128,6 @@ open class ComputableFlowLayout: UICollectionViewFlowLayout, Computable {
            oldBounds.size != newBounds.size {
             return true
         }
-        
         return super.shouldInvalidateLayout(forBoundsChange: newBounds)
     }
 }

@@ -10,12 +10,9 @@ import UIKit
 // MARK: - PlaceholderViewDelegate
 
 protocol PlaceholderViewDelegate: AnyObject {
-    
     func placeholderViewDidShow(_ tableView: UITableView)
-    
     func placeholderViewDidHide(_ tableView: UITableView)
 }
-
 
 
 // MARK: - PlaceholderView
@@ -26,7 +23,6 @@ final class PlaceholderView: UIView, Nibable {
     
     @IBOutlet weak var contentView: UIView! = nil
     
-    
     weak var delegate: PlaceholderViewDelegate! = nil
     
     
@@ -34,13 +30,10 @@ final class PlaceholderView: UIView, Nibable {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.loadNib()
-        
         self.delegate = self
     }
 }
-
 
 
 // MARK: - PlaceholderDelegate Implementation
@@ -53,11 +46,7 @@ extension PlaceholderView: PlaceholderViewDelegate {
                        usingSpringWithDamping: 0.5,
                        initialSpringVelocity: 0.5,
                        options: .curveEaseIn) { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-
+            guard let self = self else { return }
             self.alpha = .shown
         }
     }
@@ -68,11 +57,7 @@ extension PlaceholderView: PlaceholderViewDelegate {
                        usingSpringWithDamping: 0.5,
                        initialSpringVelocity: 0.5,
                        options: .curveEaseOut) { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
+            guard let self = self else { return }
             self.alpha = .hidden
         }
     }

@@ -14,7 +14,6 @@ protocol Mediable: Codable, Hashable {
 }
 
 
-
 // MARK: - MediaViewModel
 
 public struct MediaViewModel: Mediable {
@@ -27,15 +26,17 @@ public struct MediaViewModel: Mediable {
     var description: String?
     var cast: String?
     var isHD: Bool?
+    var displayCover: String?
+    var detailCover: String?
     var logo: String?
     var hasWatched: Bool?
     var newRelease: Bool?
+    var logoPosition: String?
+    var slug: String?
     
     var genres: [String]?
     var trailers: [String]?
-    var highResCover: String?
     var covers: [String]?
-    var smallCover: String?
     
     
     // MARK: TV Show's Properties
@@ -54,7 +55,6 @@ public struct MediaViewModel: Mediable {
 }
 
 
-
 // MARK: - Equatable Implementation
 
 extension MediaViewModel: Equatable {
@@ -62,7 +62,6 @@ extension MediaViewModel: Equatable {
         return lhs.id == rhs.id
     }
 }
-
 
 
 // MARK: - Comparable Implementation

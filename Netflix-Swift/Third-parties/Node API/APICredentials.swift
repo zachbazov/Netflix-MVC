@@ -14,15 +14,11 @@ final class APICredentials {
     // MARK: Properties
     
     static var kUser: String = "apiservice.authentication.user"
-    
     static var kJWT: String = "apiservice.authentication.jwt"
-    
     
     let defaults: UserDefaults = UserDefaults.standard
     
-    
     var jwt: JWT! = nil
-    
     var user: UserViewModel! = nil
     
     
@@ -46,18 +42,11 @@ final class APICredentials {
             guard
                 let userData = defaults.value(forKey: APICredentials.kUser) as? Data,
                 let token = defaults.string(forKey: APICredentials.kJWT)
-            else {
-                return
-            }
-            
-            let decoder: PropertyListDecoder = .init()
-            
-            let jwt: JWT = .init(token: token)
-            
-            let user: UserViewModel = try decoder.decode(UserViewModel.self, from: userData)
-            
-            APIService.shared.authentication.credentials = .init(jwt: jwt, user: user)
-            
+            else { return }
+            let decoder = PropertyListDecoder()
+            let jwt = JWT(token: token)
+            let user = try decoder.decode(UserViewModel.self, from: userData)
+            APIService.shared.authentication.credentials = APICredentials(jwt: jwt, user: user)
         } catch let err {
             print(err.localizedDescription)
         }

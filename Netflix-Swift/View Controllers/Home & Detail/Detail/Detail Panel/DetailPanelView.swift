@@ -14,20 +14,13 @@ final class DetailPanelView: UIView, Nibable {
     // MARK: Properties
 
     @IBOutlet weak var contentView: UIView! = nil
-    
     @IBOutlet private(set) weak var leadingPanelButton: DetailPanelItemView! = nil
-    
     @IBOutlet private weak var middlePanelButton: DetailPanelItemView! = nil
-    
     @IBOutlet private(set) weak var trailingPanelButton: DetailPanelItemView! = nil
-    
     
     weak var detailViewController: DetailViewController! = nil {
         didSet {
-            guard let detailViewController = detailViewController else {
-                return
-            }
-            
+            guard let detailViewController = detailViewController else { return }
             WeakInjector.shared.inject([leadingPanelButton,
                                         middlePanelButton,
                                         trailingPanelButton],
@@ -40,7 +33,6 @@ final class DetailPanelView: UIView, Nibable {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.loadNib()
     }
     
@@ -48,7 +40,6 @@ final class DetailPanelView: UIView, Nibable {
         WeakInjector.shared.eject([leadingPanelButton,
                                    middlePanelButton,
                                    trailingPanelButton])
-        
         detailViewController = nil
     }
 }

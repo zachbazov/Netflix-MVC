@@ -14,16 +14,13 @@ protocol Nibable {
 }
 
 
-
 // MARK: - Nibable Implementation
 
 extension Nibable {
     
     func loadNib() {
         Bundle.main.loadNibNamed(String(describing: Self.self), owner: self, options: nil)
-        
         (self as! UIView).addSubview(contentView!)
-        
         contentView!.frame = (self as! UIView).bounds
         contentView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }

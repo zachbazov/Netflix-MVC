@@ -35,11 +35,9 @@ extension UITableView {
                         at indexPath: IndexPath) -> UITableViewCell?
     where T: UITableViewCell {
         let identifier = identifier != nil ? identifier!.stringValue : cell.reuseIdentifier
-        
         guard let cell = dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? T else {
             fatalError("Unable to dequeue cell \(cell.reuseIdentifier)")
         }
-        
         return cell
     }
 }

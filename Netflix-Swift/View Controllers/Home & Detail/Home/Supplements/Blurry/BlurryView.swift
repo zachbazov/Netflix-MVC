@@ -10,14 +10,10 @@ import UIKit
 // MARK: - BlurryViewDelegate
 
 protocol BlurryViewDelegate: AnyObject {
-    
     func blurryViewDidConfigure()
-    
     func blurryView(_ blurryView: BlurryView, insertToView view: UIView)
-    
     func blurryView(_ blurryView: BlurryView, insertImage image: UIImage?)
 }
-
 
 
 // MARK: - BlurryView
@@ -27,11 +23,8 @@ final class BlurryView: UIView {
     // MARK: Properties
     
     private var coverView: UIView! = nil
-    
     private var imageView: UIImageView! = nil
-    
     private var blurView: UIVisualEffectView! = nil
-    
     
     private(set) var delegate: BlurryViewDelegate! = nil
     
@@ -44,11 +37,8 @@ final class BlurryView: UIView {
     
     convenience init(frame: CGRect, _ view: UIView) {
         self.init(frame: frame)
-        
         self.delegate = self
-        
         self.blurryViewDidConfigure()
-        
         view.insertSubview(self, at: 0)
     }
     
@@ -60,11 +50,9 @@ final class BlurryView: UIView {
         coverView = nil
         imageView = nil
         blurView = nil
-        
         delegate = nil
     }
 }
-
 
 
 // MARK: - BlurryViewDelegate Implementation
@@ -75,18 +63,13 @@ extension BlurryView: BlurryViewDelegate {
         guard
             coverView == nil,
             let delegate = delegate
-        else {
-            return
-        }
-        
+        else { return }
         coverView = UIView(frame: UIScreen.main.bounds)
         imageView = UIImageView(frame: coverView.bounds)
         imageView.contentMode = .scaleAspectFill
-        
         let blurEffect = UIBlurEffect(style: .dark)
         blurView = UIVisualEffectView(effect: blurEffect)
         blurView.frame = bounds
-
         delegate.blurryView(self, insertToView: self)
     }
     

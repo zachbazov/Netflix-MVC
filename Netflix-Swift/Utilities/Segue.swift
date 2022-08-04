@@ -14,7 +14,6 @@ protocol SegueDelegate: AnyObject {
 }
 
 
-
 // MARK: - Segue
 
 final class Segue {
@@ -34,7 +33,6 @@ final class Segue {
     
     weak var delegate: SegueDelegate! = nil
     
-    
     var current: Identifier {
         didSet {
             perform()
@@ -52,10 +50,7 @@ final class Segue {
     // MARK: SegueDelegate Invocation Methods
     
     func perform() {
-        guard let delegate = delegate else {
-            return
-        }
-        
+        guard let delegate = delegate else { return }
         delegate.performSegue(withIdentifier: current)
     }
 }

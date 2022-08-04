@@ -12,9 +12,7 @@ import UIKit
 protocol Sectionable: Decodable {
     var id: Int { get }
     var title: String { get }
-    var media: [MediaViewModel] { get set }
 }
-
 
 
 // MARK: - SectionViewModel
@@ -25,20 +23,19 @@ protocol Sectionable: Decodable {
     
     var id: Int
     var title: String
-    var media: [MediaViewModel]
+    var tvshows: [MediaViewModel]
     var movies: [MediaViewModel]
     
     
     // MARK: Intialization
     
-    init(id: Int? = nil, title: String? = nil, media: [MediaViewModel]? = nil, movies: [MediaViewModel]? = nil) {
+    init(id: Int? = nil, title: String? = nil, tvshows: [MediaViewModel]? = nil, movies: [MediaViewModel]? = nil) {
         self.id = id ?? 0
         self.title = title ?? ""
-        self.media = media ?? []
         self.movies = movies ?? []
+        self.tvshows = tvshows ?? []
     }
 }
-
 
 
 // MARK: - SectionIndices

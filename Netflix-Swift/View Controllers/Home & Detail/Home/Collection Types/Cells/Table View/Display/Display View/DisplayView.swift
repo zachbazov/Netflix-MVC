@@ -14,9 +14,7 @@ final class DisplayView: UIView, Nibable {
     // MARK: Properties
     
     @IBOutlet weak var contentView: UIView! = nil
-    
     @IBOutlet private(set) weak var mediaDisplayView: MediaDisplayView! = nil
-    
     @IBOutlet private(set) weak var panelView: PanelView! = nil
     
     
@@ -24,7 +22,6 @@ final class DisplayView: UIView, Nibable {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.loadNib()
     }
 }

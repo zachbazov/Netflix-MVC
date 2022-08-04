@@ -14,13 +14,10 @@ final class TextLayerView: CATextLayer {
     override func draw(in ctx: CGContext) {
         ctx.saveGState()
         ctx.translateBy(x: 0.0, y: 0.0)
-        
         super.draw(in: ctx)
-        
         ctx.restoreGState()
     }
 }
-
 
 
 // MARK: - RatableCollectionViewCell
@@ -36,22 +33,24 @@ final class RatableCollectionViewCell: CollectionViewCell {
     
     // MARK: Initialization & Deintialization
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
+    override func awakeFromNib() {
+        super.awakeFromNib()
         self.contentView.addSubview(layerContainer)
-        
         self.layerContainer.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             self.layerContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             self.layerContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             self.layerContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             self.layerContainer.heightAnchor.constraint(equalToConstant: bounds.height / 2)
         ])
+        self.coverOverlayView.addGradientLayer(frame: self.coverOverlayView.bounds,
+                                           colors: [.clear,
+                                                    .black.withAlphaComponent(0.33)],
+                                           locations: [0.0, 0.66])
     }
     
     deinit {
+        coverOverlayView.removeFromSuperview()
         textLayerView.removeFromSuperlayer()
         layerContainer.removeFromSuperview()
     }
@@ -61,7 +60,6 @@ final class RatableCollectionViewCell: CollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         coverImageView.image = nil
         textLayerView.string = nil
     }

@@ -27,15 +27,11 @@ final class DisplayTableViewCell: UITableViewCell {
             let panelView = displayView.panelView,
             let leadingPanelButton = panelView.leadingPanelButton,
             let trailingPanelButton = panelView.trailingPanelButton
-        else {
-            return
-        }
-        
+        else { return }
         WeakInjector.shared.eject([mediaDisplayView,
                                    panelView,
                                    leadingPanelButton,
                                    trailingPanelButton])
-        
         homeViewController = nil
     }
 }
@@ -48,17 +44,13 @@ extension DisplayTableViewCell: Configurable {
     
     func configure(_ section: SectionViewModel? = nil, with homeViewController: HomeViewController? = nil) {
         self.homeViewController = homeViewController
-        
         guard
             let homeViewController = homeViewController,
             let mediaDisplayView = displayView.mediaDisplayView,
             let panelView = displayView.panelView,
             let leadingPanelButton = panelView.leadingPanelButton,
             let trailingPanelButton = panelView.trailingPanelButton
-        else {
-            return
-        }
-        
+        else { return }
         WeakInjector.shared.inject([mediaDisplayView,
                                    panelView,
                                    leadingPanelButton,

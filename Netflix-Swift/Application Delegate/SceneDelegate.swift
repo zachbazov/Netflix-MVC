@@ -19,23 +19,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Lifecycle
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
         APIService.shared.authentication.credentials.decode()
-        
-        let storyboard: UIStoryboard
-        let viewController: UIViewController
-        let condition: Bool = APIService.shared.authentication.credentials.user == nil || APIService.shared.authentication.credentials.jwt == nil
-        
-        storyboard = .init(name: condition
-                           ? UIStoryboard.Name.authentication
-                           : UIStoryboard.Name.home,
-                           bundle: .main)
-        
-        viewController = storyboard.instantiateViewController(withIdentifier: condition ? UIViewController.Identifier.navigationAuthViewController : UIViewController.Identifier.homeTabBarController)
-        
-        window = .init(windowScene: windowScene)
+        let condition = APIService.shared.authentication.credentials.user == nil || APIService.shared.authentication.credentials.jwt == nil
+        let storyboard = UIStoryboard(name: condition
+                                        ? UIStoryboard.Name.authentication
+                                        : UIStoryboard.Name.home,
+                                      bundle: .main)
+        let viewController = storyboard.instantiateViewController(withIdentifier: condition
+                                                                    ? UIViewController.Identifier.navigationAuthViewController
+                                                                    : UIViewController.Identifier.homeTabBarController)
+        window = UIWindow(windowScene: windowScene)
         window!.rootViewController = viewController
         window!.makeKeyAndVisible()
     }

@@ -10,15 +10,10 @@ import UIKit
 // MARK: - DetailPanelItemConfigurationDelegate
 
 @objc private protocol DetailPanelItemConfigurationDelegate: AnyObject {
-    
     func configurationDidRegisterRecognizers(_ configuration: DetailPanelItemConfiguration)
-    
-    
     @objc func detailPanelItemDidTap(_ sender: Any)
-    
     @objc func detailPanelItemDidLongPress(_ sender: Any)
 }
-
 
 
 // MARK: - DetailPanelItemConfiguration
@@ -42,15 +37,10 @@ import UIKit
     // MARK: Properties
     
     fileprivate var gestureRecognizer: GestureRecognizer = .tap
-    
     fileprivate var tapGestureRecognizer: UITapGestureRecognizer! = nil
-    
     fileprivate var longPressGestureRecignizer: UILongPressGestureRecognizer! = nil
     
-    
     weak var item: DetailPanelItem! = nil
-    
-    
     weak var delegate: DetailPanelItemConfigurationDelegate! = nil
     
     
@@ -59,7 +49,6 @@ import UIKit
     convenience init(_ detailPanelItem: DetailPanelItem) {
         self.init()
         self.item = detailPanelItem
-        
         self.delegate = self
         self.configurationDidRegisterRecognizers(self)
     }
@@ -67,12 +56,10 @@ import UIKit
     deinit {
         tapGestureRecognizer = nil
         longPressGestureRecignizer = nil
-        
         delegate = nil
         item = nil
     }
 }
-
 
 
 // MARK: - DetailPanelItemConfigurationDelegate Implementation
@@ -83,20 +70,14 @@ extension DetailPanelItemConfiguration: DetailPanelItemConfigurationDelegate {
         guard
             let delegate = delegate,
             let item = item
-        else {
-            return
-        }
-        
-        tapGestureRecognizer = .init(target: delegate,
+        else { return }
+        tapGestureRecognizer = UITapGestureRecognizer(target: delegate,
                                      action: #selector(delegate.detailPanelItemDidTap(_:)))
-        
-        longPressGestureRecignizer = .init(target: delegate,
+        longPressGestureRecignizer = UILongPressGestureRecognizer(target: delegate,
                                            action: #selector(delegate.detailPanelItemDidLongPress(_:)))
-        
         item.addGestureRecognizer(tapGestureRecognizer)
         item.addGestureRecognizer(longPressGestureRecignizer)
     }
-    
     
     @objc func detailPanelItemDidTap(_ sender: Any) {
         guard
@@ -104,18 +85,13 @@ extension DetailPanelItemConfiguration: DetailPanelItemConfigurationDelegate {
             let detailViewController = item.detailViewController,
             let homeViewController = detailViewController.homeViewController,
             let homeViewModel = homeViewController.homeViewModel as HomeViewModel?,
-            let configurationItem: DetailPanelItemConfiguration.Item = .init(rawValue: item.tag),
+            let configurationItem = DetailPanelItemConfiguration.Item(rawValue: item.tag),
             let homeOverlayViewController = homeViewController.homeOverlayViewController
-        else {
-            return
-        }
-        
+        else { return }
         gestureRecognizer = .tap
-        
         item.contentView.setAlphaAnimation(using: gestureRecognizer == .tap
-                                           ? tapGestureRecognizer
-                                           : longPressGestureRecignizer)
-        
+                                            ? tapGestureRecognizer
+                                            : longPressGestureRecignizer)
         switch configurationItem {
         case .myList:
             if let snapshot = homeViewModel.snapshot {
@@ -124,32 +100,23 @@ extension DetailPanelItemConfiguration: DetailPanelItemConfigurationDelegate {
                     .shouldInsertOrRemove(homeViewModel.detailMedia!,
                                           for: homeViewModel.currentSnapshot == .tvShows ? .tvShows : .movies,
                                           insertObjectTo: &homeViewController.homeViewModel.myList.data)
-                
                 homeViewController.tableView.reloadRows(at: [.first], with: .automatic)
-                
                 DispatchQueue.main.async {
-                    snapshot.myListCell?.collectionView.reloadData()
+                    snapshot.myListCell?.collectionView?.reloadData()
                 }
-                
-                homeOverlayViewController.dataSet = .init(homeViewController.homeViewModel.section(at: .myList),
-                                                          withItems: Array(homeViewController.homeViewModel.myList.data),
-                                                          withCollectionView: homeOverlayViewController.collectionView,
-                                                          withHomeOverlayViewController: homeOverlayViewController)
-                
-                homeOverlayViewController.snapshot = .init(homeOverlayViewController.dataSet, with: homeViewController)
-                
+                homeOverlayViewController.dataSet = HomeOverlayDataSet(homeViewController.homeViewModel.section(at: .myList),
+                                                          homeViewController: homeViewController,
+                                                          homeOverlayItems: Array(homeViewController.homeViewModel.myList.data),
+                                                          homeOverlayViewController: homeOverlayViewController)
+                homeOverlayViewController.snapshot = HomeOverlaySnapshot(homeOverlayViewController.dataSet, homeViewController)
                 homeOverlayViewController.collectionView.delegate = homeOverlayViewController.snapshot
                 homeOverlayViewController.collectionView.dataSource = homeOverlayViewController.snapshot
                 homeOverlayViewController.collectionView.prefetchDataSource = homeOverlayViewController.snapshot
-                
                 homeOverlayViewController.collectionView.reloadData()
             }
-            
             item.isMyListButtonSelected.toggle()
-            
         case .rate:
             item.isRateButtonSelected.toggle()
-            
         case .share:
             break
         }
@@ -158,27 +125,20 @@ extension DetailPanelItemConfiguration: DetailPanelItemConfigurationDelegate {
     @objc func detailPanelItemDidLongPress(_ sender: Any) {
         guard
             let item = item,
-            let configurationItem: DetailPanelItemConfiguration.Item = .init(rawValue: item.tag)
-        else {
-            return
-        }
-        
+            let configurationItem = DetailPanelItemConfiguration.Item(rawValue: item.tag)
+        else { return }
         gestureRecognizer = .longPress
-        
         item.contentView.setAlphaAnimation(using: gestureRecognizer == .tap
                                                 ? tapGestureRecognizer
                                                 : longPressGestureRecignizer)
-        
         switch configurationItem {
         case .myList: print(gestureRecognizer, item, configurationItem.rawValue)
         case .rate: print(gestureRecognizer, item, configurationItem.rawValue)
         case .share: print(gestureRecognizer, item, configurationItem.rawValue)
         }
-        
         item.isMyListButtonSelected.toggle()
     }
 }
-
 
 
 // MARK: - DetailPanelItemDelegate
@@ -189,7 +149,6 @@ protocol DetailPanelItemDelegate: AnyObject {
 }
 
 
-
 // MARK: - DetailPanelItem
 
 class DetailPanelItem: UIView {
@@ -197,32 +156,20 @@ class DetailPanelItem: UIView {
     // MARK: Properties
     
     @IBOutlet weak var contentView: UIView! = nil
-    
     @IBOutlet private(set) weak var titleLabel: UILabel! = nil
-    
     @IBOutlet private(set) weak var imageView: UIImageView! = nil
     
-    
     open var isMyListButtonSelected = false
-    
     open var isRateButtonSelected = false
-    
     open var systemImage: String! = nil
-    
     open var title: String! = nil
     
-    
     fileprivate var configuration: DetailPanelItemConfiguration! = nil
-    
     fileprivate weak var delegate: DetailPanelItemDelegate! = nil
-    
     
     weak var detailViewController: DetailViewController! = nil {
         didSet {
-            guard let delegate = delegate else {
-                return
-            }
-            
+            guard let delegate = delegate else { return }
             delegate.selectItemIfNeeded()
         }
     }
@@ -232,21 +179,17 @@ class DetailPanelItem: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.configuration = .init(self)
-        
         self.delegate = self
     }
     
     deinit {
         systemImage = nil
         title = nil
-        
         delegate = nil
         detailViewController = nil
     }
 }
-
 
 
 // MARK: - DetailPanelItemDelegate Implementation
@@ -258,10 +201,7 @@ extension DetailPanelItem: DetailPanelItemDelegate {
             let detailViewController = detailViewController,
             let homeViewController = detailViewController.homeViewController,
             let homeViewModel = homeViewController.homeViewModel as HomeViewModel?
-        else {
-            return
-        }
-        
+        else { return }
         homeViewModel.myList.data.contains(homeViewModel.detailMedia!)
             ? { isMyListButtonSelected = true }()
             : { isMyListButtonSelected = false }()
@@ -270,12 +210,10 @@ extension DetailPanelItem: DetailPanelItemDelegate {
     func prepareForReuse() {
         systemImage = nil
         title = nil
-        
         isMyListButtonSelected = false
         isRateButtonSelected = false
     }
 }
-
 
 
 // MARK: - PanelItemView
@@ -289,11 +227,8 @@ final class DetailPanelItemView: DetailPanelItem, Nibable {
             guard
                 let systemImage = systemImage,
                 let title = title
-            else {
-                return
-            }
-            
-            imageView.image = .init(systemName: systemImage)
+            else { return }
+            imageView.image = UIImage(systemName: systemImage)
             titleLabel.text = title
         }
     }
@@ -303,11 +238,8 @@ final class DetailPanelItemView: DetailPanelItem, Nibable {
             guard
                 let systemImage = systemImage,
                 let title = title
-            else {
-                return
-            }
-            
-            imageView.image = .init(systemName: systemImage)
+            else { return }
+            imageView.image = UIImage(systemName: systemImage)
             titleLabel.text = title
         }
     }
@@ -317,11 +249,7 @@ final class DetailPanelItemView: DetailPanelItem, Nibable {
             let myListImage = !isMyListButtonSelected ? "plus" : "checkmark"
             let rateImage = !isRateButtonSelected ? "hand.thumbsup" : "hand.thumbsup.fill"
             let shareImage = "square.and.arrow.up"
-            
-            guard let item: DetailPanelItemConfiguration.Item = .init(rawValue: tag) else {
-                return nil
-            }
-            
+            guard let item = DetailPanelItemConfiguration.Item(rawValue: tag) else { return nil }
             switch item {
             case .myList: return myListImage
             case .rate: return rateImage
@@ -336,11 +264,7 @@ final class DetailPanelItemView: DetailPanelItem, Nibable {
             let myListImage = "My List"
             let rateImage = "Rate"
             let shareImage = "Share"
-            
-            guard let item: DetailPanelItemConfiguration.Item = .init(rawValue: tag) else {
-                return nil
-            }
-            
+            guard let item = DetailPanelItemConfiguration.Item(rawValue: tag) else { return nil }
             switch item {
             case .myList: return myListImage
             case .rate: return rateImage
@@ -355,9 +279,7 @@ final class DetailPanelItemView: DetailPanelItem, Nibable {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.loadNib()
-        
         self.delegate.prepareForReuse()
     }
 }

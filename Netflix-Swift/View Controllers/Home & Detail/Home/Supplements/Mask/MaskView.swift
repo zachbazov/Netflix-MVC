@@ -10,17 +10,14 @@ import UIKit
 // MARK: - MaskViewDelegate
 
 protocol MaskViewDelegate: AnyObject {
-    
     func maskViewDidShow(_ maskView: MaskView,
                          coordinatorView view: UIView,
                          with tabBar: UITabBar?,
                          translationY y: CGFloat?)
-    
     func maskViewDidHide(_ maskView: MaskView,
                          coordinatorView view: UIView,
                          with tabBar: UITabBar?)
 }
-
 
 
 // MARK: - MaskView

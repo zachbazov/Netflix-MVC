@@ -25,17 +25,36 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DtY-MH-HCm">
+                        <rect key="frame" x="0.0" y="0.0" width="146" height="207"/>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SCT-QA-Qpk">
+                        <rect key="frame" x="8" y="127" width="130" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="64" id="rnd-wa-iRv"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="DtY-MH-HCm" secondAttribute="trailing" id="0wt-jX-Lbn"/>
+                    <constraint firstAttribute="bottom" secondItem="SCT-QA-Qpk" secondAttribute="bottom" constant="16" id="3ee-6z-f8n"/>
+                    <constraint firstItem="DtY-MH-HCm" firstAttribute="top" secondItem="pQt-OF-I9v" secondAttribute="top" id="4q8-Sv-U3a"/>
+                    <constraint firstAttribute="trailing" secondItem="SCT-QA-Qpk" secondAttribute="trailing" constant="8" id="7H0-P9-BSs"/>
                     <constraint firstItem="j2z-XJ-UXi" firstAttribute="top" secondItem="pQt-OF-I9v" secondAttribute="top" id="EJy-97-gDl"/>
+                    <constraint firstItem="DtY-MH-HCm" firstAttribute="leading" secondItem="pQt-OF-I9v" secondAttribute="leading" id="P47-vK-llz"/>
+                    <constraint firstAttribute="bottom" secondItem="DtY-MH-HCm" secondAttribute="bottom" id="UAo-3e-HYu"/>
                     <constraint firstAttribute="bottom" secondItem="j2z-XJ-UXi" secondAttribute="bottom" id="gBf-fx-Ff4"/>
                     <constraint firstAttribute="trailing" secondItem="j2z-XJ-UXi" secondAttribute="trailing" id="lue-Vv-JEq"/>
+                    <constraint firstItem="SCT-QA-Qpk" firstAttribute="leading" secondItem="pQt-OF-I9v" secondAttribute="leading" constant="8" id="nh4-r2-ffz"/>
                     <constraint firstItem="j2z-XJ-UXi" firstAttribute="leading" secondItem="pQt-OF-I9v" secondAttribute="leading" id="yra-iZ-ai9"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="146" height="207"/>
             <connections>
                 <outlet property="coverImageView" destination="j2z-XJ-UXi" id="YcA-LI-n4A"/>
+                <outlet property="coverOverlayView" destination="DtY-MH-HCm" id="diN-U9-yhG"/>
+                <outlet property="logoBottomConstraint" destination="3ee-6z-f8n" id="Tnu-RE-Twm"/>
+                <outlet property="logoImageView" destination="SCT-QA-Qpk" id="0sv-uc-dCG"/>
             </connections>
             <point key="canvasLocation" x="-37.681159420289859" y="150.33482142857142"/>
         </collectionViewCell>
